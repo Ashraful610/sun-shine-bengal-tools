@@ -29,7 +29,7 @@ const Navbar = () => {
         }        
 
     return (
-    <div className="navbar bg-black/80 sm:px-5 px-2 sm:py-3 py-1 w-full shadow-lg ">
+    <div className="navbar bg-black/90 sm:px-5 px-2 sm:py-3 py-1 w-full shadow-lg ">
         <div className="navbar-start lg:w-5/6 w-4/6 ">
              {/* -------------- small navigation -------------------- */}
             <div className="dropdown">
