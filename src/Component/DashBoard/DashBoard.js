@@ -1,27 +1,53 @@
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { Link, Navigate, Outlet, useNavigate } from 'react-router-dom';
+import auth from '../../firebase.init';
+import Loading from '../Shared/Loading/Loading';
 
-const DashBoard = () => {
-    return (
-     <div>
-        <div className="drawer drawer-mobile">
-            <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content flex flex-col items-center justify-center">
-               {/* Page content here  */}
-                <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
-            
-            </div> 
-            <div className="drawer-side">
-                <label htmlFor="my-drawer-2" className="drawer-overlay"></label> 
-                <ul className="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
-                <!-- Sidebar content here -->
-                <li><a>Sidebar Item 1</a></li>
-                <li><a>Sidebar Item 2</a></li>
-                </ul>
-            
-            </div>
-        </div>
-     </div>
+const Dashboard = () => {
+    const [user, loading, error] = useAuthState(auth)
+    const navigate = useNavigate()
+    if(loading){
+        return <Loading></Loading>
+    }
+
+    return (   
+    <div className="drawer drawer-mobile">
+          <input id="dashboard-sidebar" type="checkbox" className="drawer-toggle" />
+          <div className="drawer-content flex flex-col ">
+            <h2 className='lg:text-3xl text-2xl text-secondary my-4 text-center'>
+                Welcome to your Dashboard
+            </h2>
+              <Outlet></Outlet>           
+          </div> 
+          <div className="drawer-side w-[250px]">
+             <label htmlFor="dashboard-sidebar" className="drawer-overlay"></label> 
+              <ul className="menu p-4 overflow-y-auto bg-black/90 text-base-content">
+                        {/* <!-- Sidebar content here --> */}
+                   <li>
+                      <Link to="/dashboard" className='text-white'>
+                        My Profile
+                      </Link>
+                   </li>
+                   <li>
+                      <Link to="/dashboard/myorder" className='text-white'>
+                        My Order
+                     </Link>
+                   </li>
+                   <li>
+                      <Link to="/dashboard/updateProfile" className='text-white'>
+                        Update Profile
+                     </Link>
+                   </li>
+                   <li>
+                      <Link to="/dashboard/myreview" className='text-white'>
+                        Add A Review
+                      </Link>
+                   </li>
+              </ul>               
+          </div>
+    </div>
     );
 };
 
-export default DashBoard;
+export default Dashboard;

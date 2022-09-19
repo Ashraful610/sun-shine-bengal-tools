@@ -10,6 +10,10 @@ import NotFoundPage from './Component/Shared/NotFoundPage/NotFoundPage';
 import SignIn from './Component/SignIn/SignIn';
 import SignUp from './Component/SignUP/SignUp';
 import DashBoard from './Component/DashBoard/DashBoard';
+import MyProfile from './Component/DashBoard/MyProfile/MyProfile';
+import MyReview from './Component/DashBoard/MyReview/MyReview';
+import MyOrder from './Component/DashBoard/MyOrder/MyOrder';
+import UpdateProfile from './Component/DashBoard/UpdateProfile/UpdateProfile';
 
 function App() {
   return (
@@ -22,7 +26,12 @@ function App() {
           <Route path='/portfolio' element={<MyPortfolio></MyPortfolio>}/>
           <Route path='signIn' element={<SignIn></SignIn>}/>
           <Route path='signUp' element={<SignUp></SignUp>}/>
-          <Route path='dashBoard' element={<DashBoard></DashBoard>}/>
+          <Route path="/dashboard" element={<DashBoard></DashBoard>}>
+                <Route index element={<MyProfile></MyProfile>}></Route>
+                <Route path='myreview' element={<MyReview></MyReview>}></Route>             
+                <Route path='myorder' element={<MyOrder></MyOrder>}></Route>
+                <Route path='updateProfile' element={<UpdateProfile></UpdateProfile>}></Route>
+            </Route>
           <Route path='*' element={<NotFoundPage></NotFoundPage>}/>
        </Routes>
        {/* <Footer /> */}

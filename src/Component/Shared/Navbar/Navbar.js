@@ -29,7 +29,7 @@ const Navbar = () => {
 
     return (
     <div className="navbar bg-black/90 sm:px-5 px-2 sm:py-3 py-1 w-full shadow-lg ">
-        <div className="navbar-start lg:w-4/6 w-4/6 ">
+        <div className="navbar-start lg:w-5/6  md:w-3/6 w-4/6 ">
              {/* -------------- small navigation -------------------- */}
             <div className="dropdown">
                 <label tabIndex="0" className="btn btn-ghost lg:hidden p-0 pr-2 text-white">
@@ -43,9 +43,15 @@ const Navbar = () => {
                     <Link to='/portfolio' className='text-xl px-2'>My Portfolio</Link>
                     {
                         user && <>
-                            <Link to='/dashBoard' className='text-xl px-2' px-2>DashBoard</Link>
+                            <Link to='/dashBoard' className='text-xl px-2' px-2>
+                                DashBoard
+                            </Link>
+                            <label tabIndex="1" htmlFor="dashboard-sidebar" className="btn btn-ghost lg:hidden">
+                               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                           </label> 
                         </>
                     } 
+                      
                 </ul>
             </div>
             {/*  ---------- website name ----------- */}
@@ -65,27 +71,23 @@ const Navbar = () => {
                         My Portfolio
                     </Link>
                     {
-                        user && <>
+                        user ?
+                        <>
                          <Link to='/dashBoard' className='text-xl text-white xl:mx-4 lg:mx-2'>
                             DashBoard
-                        </Link>
-                        
-                        </>
+                         </Link>
+                           <button className='text-xl text-white px-2 sm:mx-10'
+                           onClick={handleSignOut}>
+                             Sign Out
+                           </button>
+                        </> : <Link to='/signIn' className='text-xl text-white px-2  sm:mx-10'>Sign In</Link>
                     }
                 </ul>
            </div>
         </div>
-        <div className="navbar-end lg:w-2/6 w-2/6">
+        <div className="navbar-end lg:w-1/6 md:w-3/6 w-2/6">
                {
-                user ? 
-                 <>
-                   <h2 className='text-white text-xl font-semibold'>{user?.displayName}</h2>
-                    <button className='text-xl text-white px-2 font-semibold sm:mx-10'
-                     onClick={handleSignOut}>
-                    Sign Out
-                    </button>
-                 </>
-                : <Link to='/signIn' className='text-xl text-white px-2 font-semibold sm:mx-10'>Sign In</Link>
+                user && <p className='text-white text-lg'>{user.displayName}</p>         
                }
         </div>
     </div>
