@@ -11,6 +11,9 @@ const Dashboard = () => {
         return <Loading></Loading>
     }
 
+    if(!user){
+      navigate('/home')
+    }
     return (   
     <div className="drawer drawer-mobile">
           <input id="dashboard-sidebar" type="checkbox" className="drawer-toggle" />
