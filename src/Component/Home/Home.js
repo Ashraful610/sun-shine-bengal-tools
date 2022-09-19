@@ -9,9 +9,9 @@ import ExtraSectionTwo from './ExtraSectionTwo/ExtraSectionTwo'
 const Home = () => {
     return (
         <div>
-           {/* <Banner></Banner> */}
+           <Banner></Banner>
            {/* <Tools></Tools> */}
-           <BusinessSummary></BusinessSummary>
+           {/* <BusinessSummary></BusinessSummary> */}
            {/* <Reviews></Reviews> */}
            {/* <ExtraSectionOne></ExtraSectionOne> */}
            {/* <ExtraSectionTwo></ExtraSectionTwo> */}
