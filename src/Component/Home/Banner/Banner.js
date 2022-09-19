@@ -4,7 +4,7 @@ import  images from '../../../Photo/images.png'
 
 const Banner = () => {
     return (
-     <div className="banner bg-blend-overlay w-full min-h-[500px] h-screen md:p-5 p-3 bg-black/70 flex justify-center items-center">
+     <div className="banner bg-blend-overlay w-full min-h-[500px] h-screen max-h-[600px] md:p-5 p-3 bg-black/70 flex justify-center items-center">
            {/* ----------- banner title ------------ */}
            <div className=' lg:w-3/4 sm:w-3/4 w-4/4 text-center p-2'>
                <h2 className="lg:text-6xl md:text-5xl  text-3xl  font-semibold bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-sky-400">

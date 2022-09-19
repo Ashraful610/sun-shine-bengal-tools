@@ -10,7 +10,7 @@ const Reviews = () => {
          .then(data => setReviews(data))
      },[])
     return (
-    <main className="w-full min-h-screen h-fit sm:px-10 sm:pb-10 md:px-8 p-5 bg-black/90 ">
+    <main className="w-full min-h-[500px] h-fit sm:px-10 sm:pb-10 md:px-8 p-5 bg-black/90 ">
           <div className="sm:p-5 p-0">
              <h2 className='sm:text-5xl text-3xl text-center  font-semibold font-serif bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-sky-500'>
                 Our Customers Reviews

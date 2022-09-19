@@ -6,7 +6,7 @@ const Tools = () => {
     const tools = useTools()
     console.log(tools)
     return (
-        <div className='w-full min-h-screen py-8 px-5 bg-black/90'>
+        <div className='w-full min-h-[500px] h-fit  py-8 px-5 bg-black/90'>
            <h2 className='text-5xl text-center  font-semibold font-serif bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-sky-500'>
             Our Bengal Tools 
            </h2>

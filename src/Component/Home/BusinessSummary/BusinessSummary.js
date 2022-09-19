@@ -3,7 +3,7 @@ import React from 'react';
 const BusinessSummary = () => {
   
     return (
-        <main className="w-full lg:h-screen md:h-[600px] bg-black/90 h-fit sm:px-10 sm:pb-10 md:px-8 p-5 ">
+        <main className="w-full min-h-[500px] h-fit sm:max-h-[600px] max-h-fit bg-black/90 sm:px-10 sm:pb-10 md:px-8 p-5 ">
             <div className="sm:p-5 p-0">
                <h2 className='md:text-5xl text-4xl text-center  font-semibold font-serif bg-clip-text  text-transparent bg-gradient-to-r from-pink-500 to-sky-500'>
                   Our Business Summary
@@ -11,7 +11,7 @@ const BusinessSummary = () => {
             </div>
             {/* -------- summary section --------------------*/}
             <section className="w-full md:h-4/5 h-full flex items-center">
-                <div className="w-full  md:h-3/4  lg:p-5 md:py-0 py-5 grid md:grid-cols-3 gap-5">
+                <div className="w-full  md:h-3/4  lg:p-5 pb-10 grid md:grid-cols-3 gap-5">
                         {/* ----------- summary one --------------------*/}
                     <div className=" text-white  backdrop-blur-sm bg-white/10">
                         {/* -- ---------- img div -----------*/}
@@ -19,7 +19,7 @@ const BusinessSummary = () => {
                             <img src="https://i.ibb.co/Jxp5v5R/mendator-removebg-preview.png" alt="" className='w-24 h-24 bg-white rounded-full'/>
                         </div>
                         {/* ------- summary text -----------*/}
-                        <div className="content-text text-center  px-2">
+                        <div className="content-text text-center  p-2">
                            <div>
                               <h3 className="font-semibold py-2 bg-clip-text  text-transparent bg-gradient-to-r from-pink-500 to-sky-500 font-serif">
                                 we served 100+ customers

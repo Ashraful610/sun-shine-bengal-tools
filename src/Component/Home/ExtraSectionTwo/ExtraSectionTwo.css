@@ -1,0 +1,28 @@
+.service-img-div{
+    display: flex;
+    justify-content: center !important;
+}
+.service-details-div{
+    text-align: center;
+}
+.service-details-div p {
+    font-weight: 500;
+}
+.service-information{
+    margin: 0px 46px;
+    padding: 0px 15px;
+}
+.service-details{
+    text-align: center;
+    background-color: white;
+    padding: 10px 50px ;
+    border: 3px solid black;
+    border-radius:10px;
+}
+.service-details h3{
+    font-weight: 400;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.service-details p {
+    font-size: 18px;
+}

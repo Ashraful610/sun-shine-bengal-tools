@@ -3,7 +3,7 @@ import './ExtraSectionOne.css'
 
 const ExtraSectionOne = () => {
     return (
-        <section className="p-5 bg-black/90 min-h-screen h-full">
+        <section className="p-5 bg-black/90 min-h-[550px] h-fit max-h-[900px]">
              <h2 className='text-5xl text-center  font-semibold font-serif bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-sky-500'>
                Our Service
              </h2>

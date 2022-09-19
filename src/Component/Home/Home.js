@@ -9,12 +9,12 @@ import ExtraSectionTwo from './ExtraSectionTwo/ExtraSectionTwo'
 const Home = () => {
     return (
         <div>
-           {/* <Banner></Banner> */}
-           {/* <Tools></Tools> */}
-           {/* <BusinessSummary></BusinessSummary> */}
-           {/* <Reviews></Reviews> */}
-           {/* <ExtraSectionOne></ExtraSectionOne> */}
-           {/* <ExtraSectionTwo></ExtraSectionTwo> */}
+           <Banner></Banner>
+           <Tools></Tools>
+           <BusinessSummary></BusinessSummary>
+           <Reviews></Reviews>
+           <ExtraSectionTwo></ExtraSectionTwo>
+           <ExtraSectionOne></ExtraSectionOne>
         </div>
     );
 };

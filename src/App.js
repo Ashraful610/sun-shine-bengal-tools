@@ -18,7 +18,7 @@ import UpdateProfile from './Component/DashBoard/UpdateProfile/UpdateProfile';
 function App() {
   return (
     <div className=''>
-       {/* <Navbar></Navbar> */}
+       <Navbar></Navbar>
        <Routes>
           <Route path='/' element={<Home></Home>}/>
           <Route path='/home' element={<Home></Home>}/>
@@ -34,7 +34,7 @@ function App() {
             </Route>
           <Route path='*' element={<NotFoundPage></NotFoundPage>}/>
        </Routes>
-       {/* <Footer /> */}
+       <Footer />
        <Toaster />
     </div>
   );
