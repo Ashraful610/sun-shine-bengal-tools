@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.common-input-field{
+    @apply mt-1 placeholder:italic placeholder:font-semibold block w-full rounded-md border-gray-300 shadow-sm border-none focus:ring-2 focus:ring-orange-500 sm:text-sm
+}

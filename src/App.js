@@ -14,6 +14,8 @@ import MyProfile from './Component/DashBoard/MyProfile/MyProfile';
 import MyReview from './Component/DashBoard/MyReview/MyReview';
 import MyOrder from './Component/DashBoard/MyOrder/MyOrder';
 import UpdateProfile from './Component/DashBoard/UpdateProfile/UpdateProfile';
+import RequireAuth from './Component/Shared/RequireAuth/RequireAuth'
+import BuyTool from './Component/Shared/BuyTool/BuyTool';
 
 function App() {
   return (
@@ -24,8 +26,13 @@ function App() {
           <Route path='/home' element={<Home></Home>}/>
           <Route path='/blog' element={<Blog></Blog>}/>
           <Route path='/portfolio' element={<MyPortfolio></MyPortfolio>}/>
-          <Route path='signIn' element={<SignIn></SignIn>}/>
-          <Route path='signUp' element={<SignUp></SignUp>}/>
+          <Route path='/signIn' element={<SignIn></SignIn>}/>
+          <Route path='/signUp' element={<SignUp></SignUp>}/>
+          <Route path='/buyTool/:toolId' element={
+             <RequireAuth>
+                 <BuyTool></BuyTool>
+             </RequireAuth>}>
+            </Route>
           <Route path="/dashboard" element={<DashBoard></DashBoard>}>
                 <Route index element={<MyProfile></MyProfile>}></Route>
                 <Route path='myreview' element={<MyReview></MyReview>}></Route>             

@@ -1,8 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Tool = ({tool}) => {
-    console.log(tool)
-    const {name , price , availableQuantity ,minimumQuantity,img , description} = tool
+    const {name , price , availableQuantity ,minimumQuantity,img , description ,_id} = tool
+    const navigate = useNavigate()
+    const handleTool = event => {
+        event.preventDefault()
+        navigate(`/buyTool/${_id}`)
+    }
     return (
         <div className='w-full h-[400px] '>
             <div className='w-full h-2/4'>
@@ -25,7 +30,9 @@ const Tool = ({tool}) => {
                     </h2>
                </div>
                <div className='p-2 flex justify-center'>
-                   <button className='btn gradient-btn w-2/4'>Buy Now</button>
+                   <button className='btn gradient-btn w-2/4' onClick={handleTool}>
+                      Buy Now
+                    </button>
                </div>
             </div>
         </div>
