@@ -1,0 +1,59 @@
+
+/* --------------- form container > sign-in-sign-up container > form ---------------*/
+form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    grid-column: 1/2;
+    grid-row: 1/2;
+}
+/* ---------- main container > panels container  > panel---------- */
+.panel{
+    text-align: center;
+    z-index: 7;
+}
+/* ---------- main container > panels container  > panel >.content---------- */
+.panel .content{
+    color: white;
+    font-size: 18px;
+}
+/* ---------- main container > panels container  > panel > .content > h2---------- */
+.panel h2{
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1;
+}
+/* ---------- main container > panels container  > panel > .content > p ---------- */
+.panel p{
+    font-size: .95rem;
+    font-weight: bold;
+    padding: .7rem 0;
+}
+/* ---------- main container > panels container  > panel .left-panel ---------- */
+.left-panel{
+    pointer-events: all;
+    padding: 1rem 17% 2rem 12%;
+    transition: 1.5s .8s ease-in-out;
+    background-image: url('https://i.ibb.co/rHBzwQt/computer-removebg-preview.png');
+    background-size: cover;
+   background-position: center;
+}
+/* ---------- main container > panels container  > panel .right-panel---------- */
+.right-panel{
+    padding: 1rem 12% 2rem 17%;
+    background-image: url('https://i.ibb.co/hyjpPdG/undraw-To-the-stars-re-wq2x-removebg-preview.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.gradient-btn{
+    margin: 0;
+    background-image: linear-gradient(-45deg,rgb(137, 212, 241), rgb(241, 142, 241) , rgb(247, 191, 200));
+    border: 2px solid #fff;
+    height: 40px;
+    font-weight: 900;
+    font-size: 1rem;
+    cursor: pointer;
+}
+

@@ -1,12 +1,11 @@
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-import { toast } from 'react-toastify'
 import auth from '../../../firebase.init'
+import toast from 'react-hot-toast';
 
 const Navbar = () => {
     const [user , setUser] = useState('')
- 
     //    ------------- user  selection --------------------------------
       useEffect(() =>{
         onAuthStateChanged(auth, (user) => {
@@ -20,7 +19,7 @@ const Navbar = () => {
     const handleSignOut = () => {
         signOut(auth)
         .then(() => {
-            toast.success(`${user.email} successfully signed out`);
+            toast.success(`${user.email} successfully signed out`,);
             setUser('')
           })
         .catch((error) => {
@@ -30,7 +29,7 @@ const Navbar = () => {
 
     return (
     <div className="navbar bg-black/90 sm:px-5 px-2 sm:py-3 py-1 w-full shadow-lg ">
-        <div className="navbar-start lg:w-5/6 w-4/6 ">
+        <div className="navbar-start lg:w-4/6 w-4/6 ">
              {/* -------------- small navigation -------------------- */}
             <div className="dropdown">
                 <label tabIndex="0" className="btn btn-ghost lg:hidden p-0 pr-2 text-white">
@@ -76,10 +75,11 @@ const Navbar = () => {
                 </ul>
            </div>
         </div>
-        <div className="navbar-end lg:w-1/6 w-2/6">
+        <div className="navbar-end lg:w-2/6 w-2/6">
                {
                 user ? 
                  <>
+                   <h2 className='text-white text-xl font-semibold'>{user?.displayName}</h2>
                     <button className='text-xl text-white px-2 font-semibold sm:mx-10'
                      onClick={handleSignOut}>
                     Sign Out
