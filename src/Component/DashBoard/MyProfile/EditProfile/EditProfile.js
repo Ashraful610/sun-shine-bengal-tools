@@ -15,21 +15,25 @@ const EditProfile = () => {
        )
 
        useEffect(()=>{
-        fetch(`http://localhost:5000/user/${email.email}`)
+        fetch(`http://localhost:5000/user/${email.email}`,{
+            method: 'GET',
+            headers:{
+                'authorization': `Bearer ${localStorage.getItem("accessToken")}`
+            }
+        })
         .then(res => res.json())
         .then(data =>setUser(data))
      },[])
 
     const handleUpdateProfile = event => {
         event.preventDefault();
-        const newvar = event.target.new?.value
         const name = event.target.name?.value
         const email = event.target.email?.value
         const address = event.target.address?.value
         const phone = event.target.number?.value
         const education = event.target.education?.value
         const job = event.target.job?.value
-        console.log(newvar);
+        console.log(name  , email , address , phone , education , job);
 
         if(name === '' && address === '' && phone === '' && job === '' && education === '') 
         {
@@ -74,7 +78,7 @@ const EditProfile = () => {
     }
     return (
     <div>
-      <form onSubmit={handleUpdateProfile} className=' w-full min-h-[500px] h-fit px-4 py-5 sm:p-6 backdrop-blur-sm bg-white/10'>
+      <form onSubmit={handleUpdateProfile} className=' w-full min-h-[500px] h-fit px-4 py-5 sm:p-6 backdrop-blur-sm bg-white/20'>
           <div className=" w-full ">
               <div className="grid grid-cols-6 gap-6">
                   {/* --------------  name --------------------*/}

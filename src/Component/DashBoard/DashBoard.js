@@ -18,19 +18,18 @@ const Dashboard = () => {
                 'authorization': `Bearer ${localStorage.getItem("accessToken")}`
             }
         })
-        .then(res => {
-            if(res.statusCode === 401 || res.statusCode === 403) {
-                 navigate('/home')
-            }
-             return res.json()})
+        .then(res => res.json())
         .then(user => setProfile(user))
     },[user])
+    
+    useEffect(() =>{
+      if(!user){
+        navigate('/home')
+      }
+      },[])
 
     if(loading){
         return <Loading></Loading>
-    }
-    if(!user){
-      navigate('/home')
     }
     return (   
     <div className="drawer drawer-mobile lg:p-5 bg-black h-fit">

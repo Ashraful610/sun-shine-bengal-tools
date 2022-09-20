@@ -5,7 +5,6 @@ const useToken = user =>{
     useEffect( () =>{
         const email = user?.email;
         const name = user?.displayName
-        console.log(email , name)
         const currentUser = {email: email , name: name};
         if(name){
             fetch(`http://localhost:5000/user/${email}`, {

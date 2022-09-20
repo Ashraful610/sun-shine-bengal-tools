@@ -101,7 +101,9 @@ const BuyTool = () => {
             })
             .then((response) => response.json())
             .then(result => {
-                console.log(result)
+                if(result.insertedId){
+                    toast.success('successfully buy tool')
+                }
             });
         
         // ----------- for toolsCollection update api  form tool update
@@ -121,7 +123,9 @@ const BuyTool = () => {
           })
           .then(res => res.json())
           .then(result => {
-            console.log(result)
+             if(result.modifiedCount > 0){
+                toast.success('update tool quantity')
+             }
           })
 
         }
