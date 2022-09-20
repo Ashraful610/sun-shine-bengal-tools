@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Tool = ({tool}) => {
     const {name , price , availableQuantity ,minimumQuantity,img , description ,_id} = tool
     const navigate = useNavigate()
+    const [disabledBtn , setDisabledBtn] = useState(false)
+
+    if(availableQuantity <= 0) {
+        setDisabledBtn(true)
+    }
     const handleTool = event => {
         event.preventDefault()
         navigate(`/buyTool/${_id}`)
@@ -30,9 +35,15 @@ const Tool = ({tool}) => {
                     </h2>
                </div>
                <div className='p-2 flex justify-center'>
-                   <button className='btn gradient-btn w-2/4' onClick={handleTool}>
-                      Buy Now
-                    </button>
+                {
+                    disabledBtn ? 
+                      <button className='btn gradient-btn w-2/4 disabled' onClick={handleTool}>
+                        Sold Out
+                      </button>:
+                      <button className='btn gradient-btn w-2/4 disabled' onClick={handleTool}>
+                        Buy Now
+                      </button>
+                }
                </div>
             </div>
         </div>

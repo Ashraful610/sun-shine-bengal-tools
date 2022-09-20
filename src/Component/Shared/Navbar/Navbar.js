@@ -21,6 +21,7 @@ const Navbar = () => {
         .then(() => {
             toast.success(`${user.email} successfully signed out`,);
             setUser('')
+            localStorage.removeItem('accessToken')
           })
         .catch((error) => {
             toast.error(error.message, );

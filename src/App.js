@@ -11,11 +11,15 @@ import SignIn from './Component/SignIn/SignIn';
 import SignUp from './Component/SignUP/SignUp';
 import DashBoard from './Component/DashBoard/DashBoard';
 import MyProfile from './Component/DashBoard/MyProfile/MyProfile';
-import MyReview from './Component/DashBoard/MyReview/MyReview';
 import MyOrder from './Component/DashBoard/MyOrder/MyOrder';
-import UpdateProfile from './Component/DashBoard/UpdateProfile/UpdateProfile';
 import RequireAuth from './Component/Shared/RequireAuth/RequireAuth'
 import BuyTool from './Component/Shared/BuyTool/BuyTool';
+import AddTools from './Component/DashBoard/AddTools/AddTools';
+import MakeAdmin from './Component/DashBoard/MakeAdmin/MakeAdmin';
+import ManageAllOrders from './Component/DashBoard/ManageAllOrders/ManageAllOrders';
+import ManageTools from './Component/DashBoard/ManageTools/ManageTools';
+import EditProfile from './Component/DashBoard/MyProfile/EditProfile/EditProfile';
+import AddReview from './Component/DashBoard/AddReview/AddReview';
 
 function App() {
   return (
@@ -34,14 +38,18 @@ function App() {
              </RequireAuth>}>
             </Route>
           <Route path="/dashboard" element={<DashBoard></DashBoard>}>
-                <Route index element={<MyProfile></MyProfile>}></Route>
-                <Route path='myreview' element={<MyReview></MyReview>}></Route>             
-                <Route path='myorder' element={<MyOrder></MyOrder>}></Route>
-                <Route path='updateProfile' element={<UpdateProfile></UpdateProfile>}></Route>
-            </Route>
+              <Route index element={<MyProfile></MyProfile>}></Route>
+              <Route path='addreview' element={<AddReview></AddReview>}></Route>             
+              <Route path='myorder' element={<MyOrder></MyOrder>}></Route>
+              <Route path='editProfile/:email' element={<EditProfile></EditProfile>}></Route>
+              <Route path='manageOrders' element={<ManageAllOrders></ManageAllOrders>}></Route>
+              <Route path='addTools' element={<AddTools></AddTools>}></Route>
+              <Route path='makeAdmin' element={<MakeAdmin></MakeAdmin>}></Route>
+              <Route path='manageTools' element={<ManageTools></ManageTools>}></Route>
+          </Route>
           <Route path='*' element={<NotFoundPage></NotFoundPage>}/>
        </Routes>
-       <Footer />
+       {/* <Footer /> */}
        <Toaster />
     </div>
   );

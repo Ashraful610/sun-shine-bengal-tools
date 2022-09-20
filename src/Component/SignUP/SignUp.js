@@ -1,40 +1,32 @@
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
-import React, { useState } from 'react';
+import { createUserWithEmailAndPassword} from 'firebase/auth';
+import React, { useEffect, useState } from 'react';
 import auth from '../../firebase.init';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Loading from '../Shared/Loading/Loading';
 import toast from 'react-hot-toast';
 import { useUpdateProfile } from 'react-firebase-hooks/auth';
+import useToken from '../Hooks/useToken';
 
 const SignUp = () => {
     const [userError , setUserError] = useState({nameError:'',emailError:'',passwordError:''})
     const [user, userLoading, error] = useAuthState(auth);
+    const [signInWithGoogle, gUser, loading, gError] = useSignInWithGoogle(auth);
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
-   
+    
+    const [token] = useToken(user || gUser)
+      
     let navigate = useNavigate();
     let location = useLocation();
   
     let from = location.state?.from?.pathname || "/";
 
-    if(userLoading){
+    if(userLoading || loading || updating){
         return <Loading></Loading>
     }
-    if(user){
+    if(token){
          return  navigate(from, { replace: true });
-    }
-
-    const provider = new GoogleAuthProvider();
-    const googleUser = (event) => {
-        event.preventDefault()
-        signInWithPopup(auth, provider)
-        .then((result) => {
-            toast.success(`Welcome to our Website ${user?.email}`);
-          })
-        .catch((error) => {
-            toast.error(error?.message);
-         });
-    }     
+    } 
 
      //  handle user sign up
      const handleSignUp = async event => {
@@ -140,7 +132,7 @@ const SignUp = () => {
                             <div className="divider text-white ">Or continue with</div>
 
                             {/* ---------------- google button ---------- */}
-                            <button className="btn gradient-btn w-full" onClick={googleUser}>
+                            <button className="btn gradient-btn w-full" onClick={()=>signInWithGoogle()}>
                                     Google
                             </button>
                         </div>
