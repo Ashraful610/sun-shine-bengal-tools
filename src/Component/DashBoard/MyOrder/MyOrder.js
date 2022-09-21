@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
+import Loading from '../../Shared/Loading/Loading';
 import Order from '../ManageAllOrders/Order/Order';
 
 const MyOrder = () => {
@@ -11,10 +12,10 @@ const MyOrder = () => {
 
     useEffect(()=>{
         fetch(`http://localhost:5000/soldTools/${user.email}`,{
-            method: 'GET',
-            headers:{
-                'authorization': `Bearer ${localStorage.getItem("accessToken")}`
-            }
+          method: 'GET',
+          headers:{
+              'authorization': `Bearer ${localStorage.getItem("accessToken")}`
+          }
         })
         .then(res => {
                if(res.statusCode === 401 || res.statusCode === 403) {
@@ -24,7 +25,11 @@ const MyOrder = () => {
         .then(data => {
             setOrders(data)
         })
-    },[])
+    },[orders])
+    
+    if(loading){
+      return <Loading></Loading>
+    }
     return (
         <div className='w-full h-full lg:py-5 p-5'>  
         <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
@@ -47,7 +52,7 @@ const MyOrder = () => {
             </thead>
             <tbody>
                   {
-                    orders.map(order => <Order  key={order._id} order={order}/>)
+                    orders?.map(order => <Order  key={order._id} order={order}/>)
                   }
             </tbody>
           </table>

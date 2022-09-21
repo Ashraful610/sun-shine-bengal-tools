@@ -20,6 +20,7 @@ import ManageAllOrders from './Component/DashBoard/ManageAllOrders/ManageAllOrde
 import ManageTools from './Component/DashBoard/ManageTools/ManageTools';
 import EditProfile from './Component/DashBoard/MyProfile/EditProfile/EditProfile';
 import AddReview from './Component/DashBoard/AddReview/AddReview';
+import Payment from './Component/Shared/Payment/Payment';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
               <Route index element={<MyProfile></MyProfile>}></Route>
               <Route path='addreview' element={<AddReview></AddReview>}></Route>             
               <Route path='myorder' element={<MyOrder></MyOrder>}></Route>
+              <Route path='payment/:toolId' element={<Payment></Payment>}></Route>
               <Route path='editProfile/:email' element={<EditProfile></EditProfile>}></Route>
               <Route path='manageOrders' element={<ManageAllOrders></ManageAllOrders>}></Route>
               <Route path='addTools' element={<AddTools></AddTools>}></Route>
@@ -49,7 +51,7 @@ function App() {
           </Route>
           <Route path='*' element={<NotFoundPage></NotFoundPage>}/>
        </Routes>
-       {/* <Footer /> */}
+       <Footer />
        <Toaster />
     </div>
   );

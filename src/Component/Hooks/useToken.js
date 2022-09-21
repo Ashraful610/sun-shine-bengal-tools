@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react"
+import Loading from "../Shared/Loading/Loading";
 
-const useToken = user =>{
+const useToken = (user) =>{
     const [token, setToken] = useState('');
+    const email = user?.email;
+    const name = user?.displayName
+   
     useEffect( () =>{
-        const email = user?.email;
-        const name = user?.displayName
         const currentUser = {email: email , name: name};
+
         if(name){
-            fetch(`http://localhost:5000/user/${email}`, {
+            fetch(`http://localhost:5000/newUser/${email}`, {
                 method:'PUT',
                 headers: {
                     'content-type': 'application/json'
@@ -23,6 +26,7 @@ const useToken = user =>{
         }
 
     }, [user]);
+
     return [token];
 }
 

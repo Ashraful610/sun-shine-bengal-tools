@@ -5,7 +5,12 @@ const ManageAllOrders = () => {
     const [allOrders , setAllOrders] = useState([])
     
     useEffect(()=>{
-        fetch('http://localhost:5000/soldTools')
+        fetch('http://localhost:5000/soldTools', {
+          method: 'GET',
+          headers:{
+              'authorization': `Bearer ${localStorage.getItem("accessToken")}`
+          }
+        })
         .then(res => res.json())
         .then(data => setAllOrders(data))
     },[])

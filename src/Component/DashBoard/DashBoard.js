@@ -26,7 +26,7 @@ const Dashboard = () => {
       if(!user){
         navigate('/home')
       }
-      },[])
+    },[user])
 
     if(loading){
         return <Loading></Loading>

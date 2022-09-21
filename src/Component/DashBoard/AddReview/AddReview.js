@@ -1,14 +1,9 @@
-import React, { useState } from 'react';
-import { toast } from 'react-toastify';
+import React from 'react';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const AddReview = () => {
-
-    const [error , setError] = useState({
-        reviewNameError:'',
-        ratingError:'',
-        descriptionError:'',
-        photoError:'', 
-       })
+    const navigate = useNavigate()
 
     const handleAddReview = (event) => {
         event.preventDefault();
@@ -18,45 +13,28 @@ const AddReview = () => {
         const photo = event.target.photo?.value
         console.log(reviewName, rating , description , photo);
 
-        if(reviewName === undefined && rating === undefined && description === undefined && photo === undefined){
-            setError({
-                reviewNameError:'name is required' ,
-                ratingError: 'rating is required',
-                descriptionError: 'description is required', 
-                photoError: 'photo is required'
-            })
-        }
-       else if(reviewName === ''){
-            setError({reviewNameError:' name is required'})
-        }
-        else if(rating === undefined){
-            setError({ratingError:'rating is required'})
-        }
-        else if(photo === '') {
-            setError({photoError:' photo is required'})
-        }
-        else if(description === '') {
-                setError({descriptionError:'description is required'})
-        }
-        else{
+        if(reviewName  && rating  && description  && photo ){
             const review = {
-            "name":reviewName,
-            "rating": rating,
-            "description":description,
-            "img": photo
-            }
-            console.log(review)
-            // fetch('http://localhost:5000/review', {
-            // method: 'POST',
-            // body: JSON.stringify(review),
-            // headers: {
-            //     'Content-type': 'application/json; charset=UTF-8',
-            // },
-            // })
-            // .then((response) => response.json())
-            // .then((json) => {
-            //     toast.success('Successfully  add review')
-            // });
+                "name":reviewName,
+                "rating": rating,
+                "description":description,
+                "img": photo
+                }
+                console.log(review)
+                fetch('http://localhost:5000/review', {
+                   method: 'POST',
+                   body: JSON.stringify(review),
+                   headers: {
+                       'Content-type': 'application/json; charset=UTF-8',
+                       'authorization': `Bearer ${localStorage.getItem("accessToken")}`
+                }})
+                .then((response) => response.json())
+                .then((result) => {
+                    if(result.insertedId){
+                        toast.success('Review added successfully')
+                        navigate('/home')
+                    }
+                });
         }
     }
     return (
@@ -73,11 +51,6 @@ const AddReview = () => {
                       </label>
                        <input type="text" name="reviewName" placeholder='name'
                          className="common-input-field"/>
-                         {error?.reviewNameError && 
-                             <p className="text-red-500 text-base font-semibold">
-                                 {error.reviewNameError}
-                             </p> 
-                         }
                   </div>
                   {/* -------------- rating -------------------- */}
                   <div className="col-span-6 sm:col-span-3">
@@ -86,11 +59,6 @@ const AddReview = () => {
                       </label>
                      <input type="number" name="rating" placeholder='rating'
                          className="common-input-field"/>
-                     {error?.ratingError && 
-                        <p className="text-red-500 text-base font-semibold">
-                                 {error.ratingError}
-                            </p> 
-                      }
                   </div>
                    {/* ---------------  image --------------------*/}
                  <div className='col-span-6'>
@@ -98,11 +66,6 @@ const AddReview = () => {
                            photo
                       </label>
                        <input type="text" name="photo" placeholder=' photo ' className='w-full common-input-field' id="" />
-                       {error?.photoError && 
-                            <p className="text-red-500 text-base font-semibold">
-                              {error.photoError}
-                           </p> 
-                         } 
                   </div>   
                   {/* -------------------- description --------------------*/}
                   <div className='col-span-6 '>
@@ -112,17 +75,12 @@ const AddReview = () => {
                     <div className="mt-1">
                         <textarea name="description" rows={4} className="common-input-field"
                            placeholder="description" defaultValue={''}/>
-                        {error?.descriptionError && 
-                          <p className="text-red-500 text-base font-semibold">
-                                {error.descriptionError}
-                           </p> 
-                         }
                     </div>
                   </div>
               </div>
                    {/* -------------- button div ------------------------------ */}
               <div className="px-4 mt-5 text-center sm:px-6">
-                 <button type="submit" className="gradient-btn md:w-1/4 w-2/4 text-white" onClick={handleAddReview}>
+                 <button type="submit" className="gradient-btn md:w-1/4 w-2/4 text-white">
                          Submit
                 </button>
                </div>

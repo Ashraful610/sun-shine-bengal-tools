@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init.js'
 import Loading from '../Loading/Loading'
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 
 const BuyTool = () => {
     const {toolId} = useParams()
@@ -14,15 +14,6 @@ const BuyTool = () => {
     const {displayName , email} = user
 
     const navigate = useNavigate();
-    const [error , setError] = useState({
-         nameError:'',
-         emailError:'',
-         addressError:'',
-         phoneError:'',
-         descriptionError:'',
-         quantityError:'',
-        }
-        )
 // ---------- load single  tool------------
     useEffect(()=>{
         fetch(`http://localhost:5000/tool/${toolId}`)
@@ -43,43 +34,7 @@ const BuyTool = () => {
         const description = event.target.description?.value
         const quantity = event.target.quantity?.value
 
-        if(userName === '' && address === '' && phone === '' && quantity === '') {
-            setError({
-                nameError:'name is required' ,
-                emailError: 'email is required',
-                addressError: 'address is required',
-                phoneError: 'phone number is required',
-                // descriptionError: 'description is required', 
-                quantityError: 'quantity is required'
-            })
-
-        }
-       else if(userName === ''){
-            setError({nameError:'fruits name is required'})
-        }
-        else if(email === ''){
-            setError({emailError:'price is required'})
-        }
-        else if(address === ''){
-            setError({addressError:'address is required'})
-        }
-        else if(phone === ''){
-            setError({phoneError:'phone number is required'})  
-        }
-        // else if(description === '') {
-        //         setError({descriptionError:'description is required'})
-        // }
-        else if(quantity === '') {
-            setError({quantityError:'tool quantity is required'})
-        }
-        else if( parseInt(quantity) < parseInt(minimumQuantity)){
-            setError({quantityError:`you minimun order ${minimumQuantity}`})
-        }
-        else if( parseInt(quantity) > parseInt(availableQuantity)){
-            setError({quantityError:`you maximum order ${availableQuantity}`})
-        }
-        else{
-            setError({quantityError:''});
+        if(userName  && address  && phone  && quantity) {
             const newPrice = price * parseInt(quantity)
             const sellToolInfo = {
                 "name":userName ,
@@ -102,11 +57,11 @@ const BuyTool = () => {
             .then((response) => response.json())
             .then(result => {
                 if(result.insertedId){
-                    toast.success('successfully buy tool')
+                    toast.success(`successfully buy ${name}`)
                 }
             });
-        
-        // ----------- for toolsCollection update api  form tool update
+
+             // ----------- for toolsCollection update api  form tool update
         const newQuantity = parseInt(availableQuantity) - parseInt(quantity);
         const updateTool ={
                 "name":name ,
@@ -127,8 +82,7 @@ const BuyTool = () => {
                 toast.success('update tool quantity')
              }
           })
-
-        }
+        }       
     }
     return (
   <div className="w-full min-h-[500px] h-fit max-h-[1300px] sm:p-5 p-2 bg-black/90">
@@ -157,44 +111,24 @@ const BuyTool = () => {
                        <label htmlFor="first-name" className="block text-sm font-medium text-white">Name</label>
                         <input type="text" name="name" placeholder='name'
                         className="common-input-field" defaultValue={displayName}/>
-                        {error?.nameError && 
-                           <p className="text-red-500 text-base font-semibold">
-                             {error.nameError}
-                            </p> 
-                        }
                   </div>
                   {/* -------------- email -------------------- */}
                   <div className="col-span-6 sm:col-span-3">
                       <label htmlFor="last-name" className="block text-sm font-medium text-white">Email</label>
                        <input type="email" name="email" placeholder='email'
                           className="common-input-field" defaultValue={email} disabled/>
-                         {error?.emailError && 
-                          <p className="text-red-500 text-base font-semibold">
-                            {error.emailError}
-                          </p> 
-                         }
                   </div>
                   {/* -------------- address  ----------------*/}
                   <div className="col-span-6 sm:col-span-3">
                       <label htmlFor="email-address" className="block text-sm font-medium text-white">Address</label>
                       <input type="text" name="address" placeholder='address'
                         className="common-input-field"/>
-                      {error?.addressError && 
-                         <p className="text-red-500 text-base font-semibold">
-                           {error.addressError}
-                         </p> 
-                     }
                   </div>
                   {/* ------------------- number -------------------- */}
                   <div className="col-span-6 sm:col-span-3">
                       <label htmlFor="country" className="block text-sm font-medium text-white">Number</label>
                       <input type="number" name="number" placeholder='phone number'
                         className="common-input-field"/>
-                       {error?.phoneError && 
-                          <p className="text-red-500 text-base font-semibold">
-                            {error.phoneError}
-                          </p> 
-                      }
                   </div>
                    {/* --------------- tool quantity  --------------------*/}
                    <div className='col-span-6'>
@@ -202,11 +136,6 @@ const BuyTool = () => {
                           Quantity
                        </label>
                        <input type="number" name="quantity" placeholder='tool quantity' className='w-full common-input-field' id="" />
-                        {error?.quantityError && 
-                          <p className="text-red-500 text-base font-semibold">
-                               {error.quantityError}
-                         </p> 
-                          } 
                   </div>   
                   {/* -------------------- description --------------------*/}
                   <div className='col-span-6 '>
@@ -221,11 +150,6 @@ const BuyTool = () => {
                                          placeholder="description"
                                          defaultValue={''}
                                      />
-                                     {error?.descriptionError && 
-                                       <p className="text-red-500 text-base font-semibold">
-                                         {error.descriptionError}
-                                      </p> 
-                                    }
                                </div>
                   </div>
               </div>

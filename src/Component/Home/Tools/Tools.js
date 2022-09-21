@@ -12,7 +12,7 @@ const Tools = () => {
           <div className="w-full h-full py-10 grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1
          gap-5">
             {
-              tools.map(tool => <Tool key={tool._id} tool={tool}></Tool>)
+              tools?.map(tool => <Tool key={tool._id} tool={tool}></Tool>)
             }
          </div>
     </div>

@@ -1,32 +1,28 @@
-import { onAuthStateChanged, signOut } from 'firebase/auth';
-import React, { useEffect, useState } from 'react';
+import {  signOut } from 'firebase/auth';
 import { Link } from "react-router-dom";
 import auth from '../../../firebase.init'
 import toast from 'react-hot-toast';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import Loading from '../Loading/Loading';
 
 const Navbar = () => {
-    const [user , setUser] = useState('')
-    //    ------------- user  selection --------------------------------
-      useEffect(() =>{
-        onAuthStateChanged(auth, (user) => {
-               if(user){
-                   setUser(user);
-               }
-        })
-    },[])
+    const [user, userLoading, error] = useAuthState(auth);
 
     //  handle sign out
     const handleSignOut = () => {
         signOut(auth)
         .then(() => {
             toast.success(`${user.email} successfully signed out`,);
-            setUser('')
             localStorage.removeItem('accessToken')
           })
         .catch((error) => {
             toast.error(error.message, );
           });
         }        
+
+    if(userLoading){
+        return <Loading></Loading>
+    }
 
     return (
     <div className="navbar bg-black/90 sm:px-5 px-2 sm:py-3 py-1 w-full shadow-lg border-b-4 border-pink-400">
@@ -88,7 +84,7 @@ const Navbar = () => {
         </div>
         <div className="navbar-end lg:w-1/6 md:w-3/6 w-2/6">
                {
-                user && <p className='text-white text-lg'>{user.displayName}</p>         
+                user && <p className='text-white text-lg'>{user?.displayName}</p>         
                }
         </div>
     </div>

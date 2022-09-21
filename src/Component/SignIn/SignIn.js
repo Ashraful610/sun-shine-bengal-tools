@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './SignIn.css'
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import auth from '../../firebase.init.js'
-import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useAuthState, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import Loading from '.././Shared/Loading/Loading'
@@ -13,9 +12,11 @@ const SignIn = () => {
     //  ----------- user --------------
     const [user, userLoading, error] = useAuthState(auth);
     const [signInWithGoogle, gUser, loading, gError] = useSignInWithGoogle(auth);
+    const [signInWithEmailAndPassword,signInUser,signInLoading,signInError] = useSignInWithEmailAndPassword(auth);
 
     let navigate = useNavigate();
     let location = useLocation();
+
     const [token] = useToken(user || gUser)
   
     let from = location.state?.from?.pathname || "/";
@@ -24,12 +25,7 @@ const SignIn = () => {
       if(token){
          return  navigate(from, { replace: true });
        }
-    },[token , navigate])
-
-    if(userLoading){
-        return <Loading></Loading>
-    }
- 
+    },[token ,  user || gUser ,navigate])
 
     // handle user sign  in
     const handleSignIn = event => { 
@@ -37,7 +33,7 @@ const SignIn = () => {
         const email = event.target.email?.value
         const password = event.target.password?.value
 
-        signInWithEmailAndPassword(auth, email, password)
+        signInWithEmailAndPassword( email, password)
         .then((result) => {
             toast.success("Welcome to our Website ");
           })
@@ -53,8 +49,12 @@ const SignIn = () => {
                 toast.error(errorMessage);
             }
          });
-
     }
+
+    if(user){
+        return <Loading></Loading>
+    }
+
     return (
     <div className='w-full min-h-[500px] h-screen lg:p-8 md:p-6 p-4 bg-gradient-to-r from-blue-300 via-purple-400 to-pink-400'>
         <div className='backdrop-blur-sm bg-white/20 lg:flex  w-full min-h-full h-full '>

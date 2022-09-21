@@ -1,29 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const EditProfile = () => {
   const email = useParams()
   const [user , setUser] = useState({})
-    const [error , setError] = useState({
-        nameError:'',
-        emailError:'',
-        addressError:'',
-        phoneError:'',
-        educationError:'',
-        jobError:'',
-       }
-       )
+  const navigate = useNavigate()
+   
 
-       useEffect(()=>{
-        fetch(`http://localhost:5000/user/${email.email}`,{
-            method: 'GET',
-            headers:{
-                'authorization': `Bearer ${localStorage.getItem("accessToken")}`
-            }
-        })
+    useEffect(()=>{
+        fetch(`http://localhost:5000/user/${email.email}`)
         .then(res => res.json())
         .then(data =>setUser(data))
-     },[])
+     },[email])
 
     const handleUpdateProfile = event => {
         event.preventDefault();
@@ -33,48 +22,29 @@ const EditProfile = () => {
         const phone = event.target.number?.value
         const education = event.target.education?.value
         const job = event.target.job?.value
-        console.log(name  , email , address , phone , education , job);
 
-        if(name === '' && address === '' && phone === '' && job === '' && education === '') 
-        {
-            setError({
-                nameError:'name is required' ,
-                emailError: 'email is required',
-                addressError: 'address is required',
-                phoneError: 'phone number is required', 
-                jobError: 'job is required'
-            })
-
-        }
-       else if(name === ''){
-            setError({nameError:' name is required'})
-        }
-        else if(email === ''){
-            setError({emailError:'email is required'})
-        }
-        else if(address === ''){
-            setError({addressError:'address is required'})
-        }
-        else if(phone === ''){
-            setError({phoneError:'phone number is required'})  
-        }
-        else if(education === ''){
-            setError({educationError:'eduction is required'})  
-        }
-        else if(job === ''){
-            setError({jobError:'job is required'})  
-        }
-        else {
+        if(name && address  && phone  && job  && education && email ){
             const profileUpdate = {
-              name:name,
-              email:email,
-              education:education,
-              address:address,
-              phone:phone,
-              job:job
-            }
-            console.log(profileUpdate)
-        }
+                name:name,
+                email:email,
+                education:education,
+                address:address,
+                phone:phone,
+                job:job
+              }
+              fetch(`http://localhost:5000/user/${email}`,{
+                method:'PUT',
+                body: JSON.stringify(profileUpdate),
+                  headers:{'Content-type': 'application/json; charset=UTF-8'}
+              })
+              .then(res => res.json())
+              .then(result => {
+                 if(result.modifiedCount > 0){
+                    toast.success('Successfully update profile')
+                     navigate('/dashboard')
+                 }
+              })
+            }  
     }
     return (
     <div>
@@ -86,44 +56,24 @@ const EditProfile = () => {
                        <label htmlFor="first-name" className="block text-sm font-medium text-white">Name</label>
                         <input type="text" name="name" placeholder='name'
                         className="common-input-field" defaultValue={user?.name}/>
-                        {error?.nameError && 
-                           <p className="text-red-500 text-base font-semibold">
-                             {error.nameError}
-                            </p> 
-                        }
                   </div>
                   {/* -------------- email -------------------- */}
                   <div className="col-span-6 sm:col-span-3">
                       <label htmlFor="last-name" className="block text-sm font-medium text-white">Email</label>
                        <input type="email" name="email" placeholder='email'
                           className="common-input-field"  defaultValue={user?.email} disabled/>
-                         {error?.emailError && 
-                          <p className="text-red-500 text-base font-semibold">
-                            {error.emailError}
-                          </p> 
-                         }
                   </div>
                   {/* -------------- Education  ----------------*/}
                   <div className="col-span-6 sm:col-span-3">
                       <label htmlFor="email-address" className="block text-sm font-medium text-white">Education</label>
                       <input type="text" name="education" placeholder='education'
                         className="common-input-field"/>
-                      {error?.educationError && 
-                         <p className="text-red-500 text-base font-semibold">
-                           {error.educationError}
-                         </p> 
-                     }
                   </div>
                   {/* ------------------- Address -------------------- */}
                   <div className="col-span-6 sm:col-span-3">
                       <label htmlFor="country" className="block text-sm font-medium text-white">Address</label>
                       <input type="text" name="address" placeholder='address'
                         className="common-input-field"/>
-                       {error?.addressError && 
-                          <p className="text-red-500 text-base font-semibold">
-                            {error.addressError}
-                          </p> 
-                      }
                   </div>
                    {/* --------------- phone number --------------------*/}
                    <div className='col-span-6 sm:col-span-3'>
@@ -131,11 +81,6 @@ const EditProfile = () => {
                           Phone number
                        </label>
                        <input type="number" name="number" placeholder='phone number' className='w-full common-input-field' id="" />
-                        {error?.phoneError && 
-                          <p className="text-red-500 text-base font-semibold">
-                               {error.phoneError}
-                         </p> 
-                          } 
                   </div> 
                   {/* ------------ job -------------- */}
                    <div className='col-span-6 sm:col-span-3'>
@@ -143,15 +88,10 @@ const EditProfile = () => {
                           Job
                        </label>
                        <input type="text" name="job" placeholder='job' className='w-full common-input-field' id="" />
-                        {error?.jobError && 
-                          <p className="text-red-500 text-base font-semibold">
-                               {error.jobError}
-                         </p> 
-                          } 
                   </div> 
               </div>
               {/* -------------- button div ------------------------------ */}
-              <div className="px-4 pt-3 text-center sm:px-6" onClick= {event => handleUpdateProfile (event)}>
+              <div className="px-4 pt-3 text-center sm:px-6" >
                      <button type="submit" className="gradient-btn lg:w-1/4  w-2/4">
                          Edit Now
                      </button>

@@ -1,7 +1,6 @@
-import { createUserWithEmailAndPassword} from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import auth from '../../firebase.init';
-import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useAuthState, useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Loading from '../Shared/Loading/Loading';
 import toast from 'react-hot-toast';
@@ -10,20 +9,26 @@ import useToken from '../Hooks/useToken';
 
 const SignUp = () => {
     const [userError , setUserError] = useState({nameError:'',emailError:'',passwordError:''})
+
     const [user, userLoading, error] = useAuthState(auth);
-    const [signInWithGoogle, gUser, loading, gError] = useSignInWithGoogle(auth);
+
+    const [createUserWithEmailAndPassword,createUser,createLoading,createError] = useCreateUserWithEmailAndPassword(auth);
+
+    const [signInWithGoogle, gUser, gloading, gError] = useSignInWithGoogle(auth);
+    
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
     
-    const [token] = useToken(user || gUser)
+    const [token] = useToken(user || createUser || gUser)
       
     let navigate = useNavigate();
     let location = useLocation();
   
     let from = location.state?.from?.pathname || "/";
 
-    if(userLoading || loading || updating){
+    if(userLoading || createLoading || gloading || updating){
         return <Loading></Loading>
     }
+
     if(token){
          return  navigate(from, { replace: true });
     } 
@@ -47,14 +52,13 @@ const SignUp = () => {
             setUserError({passwordError:'password is required'})
         }
         else{
-            await  createUserWithEmailAndPassword(auth, email , password)
+            await  createUserWithEmailAndPassword(email , password)
             await  updateProfile({displayName:name})
             .then((result) => {
                 toast.success('Welcome to our Website')
             })
             .catch((error) => {
                 const errorMessage = error.message
-                console.log(errorMessage)
                 if(errorMessage.includes('email-already-in-use')){
                     toast.error('The email address is already in use by another account. So please sign in or use another email address');
                 }

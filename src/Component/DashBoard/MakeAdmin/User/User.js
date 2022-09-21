@@ -1,18 +1,22 @@
 import React from 'react';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 
 const User = ({user}) => {
    const {email , role} = user
 
    const makeAdmin = event => {
       event.preventDefault();
-      fetch(`http://localhost:5000/user/admin/${email}`,{
-         method:'PUT',
+
+      fetch(`http://localhost:5000/user/admin/${email}`, {
+         method: 'PUT',
          headers:{
-            'authorization': `Bearer ${localStorage.getItem("accessToken")}`
-        }
-      })
-      .then(res => res.json())
+             'authorization': `Bearer ${localStorage.getItem("accessToken")}`
+        }})
+      .then(res =>{
+            if(res.status === 403){
+                 toast.error('Failed to Make an admin');
+            }
+           return res.json()})
       .then(data => {
          if(data.modifiedCount > 0) {
             toast.success('Successfully make a admin account')

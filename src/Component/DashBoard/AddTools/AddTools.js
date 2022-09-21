@@ -1,18 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
+import toast from 'react-hot-toast';
 import {  useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 const AddTools = () => {
     const navigate = useNavigate();
-    const [error , setError] = useState({
-        toolNameError:'',
-        priceError:'',
-        availableQuantityError:'',
-        minimumQuantityError:'',
-        descriptionError:'',
-        toolPhotoError:'',
-       }
-       )
 
    const handleAddTools = event =>{ 
        event.preventDefault();
@@ -24,63 +15,33 @@ const AddTools = () => {
        const description = event.target.description?.value
        const toolPhoto = event.target.toolPhoto?.value
 
-       if(toolName === '' && price === ''  && availableQuantity === '' && description === '' && toolPhoto === '' && minimumQuantity === '') {
-           setError({
-               toolNameError:'name is required' ,
-               priceError: 'price is required',
-               minimumQuantityError: 'minimum quantity is required',
-               availableQuantityError: 'available Quantity is required',
-               descriptionError: 'description is required', 
-               toolPhotoError: 'tool photo is required'
-           })
-
-       }
-      else if(toolName === ''){
-           setError({toolNameError:'fruits name is required'})
-       }
-       else if(price === ''){
-           setError({priceError:'price is required'})
-       }
-       else if(availableQuantity === ''){
-           setError({availableQuantityError:'available Quantity is required'})  
-       }
-       else if(minimumQuantity === ''){
-           setError({minimumQuantityError:'minimum Quantity is required'})
-       }
-       else if(toolPhoto === '') {
-           setError({toolPhotoError:'tool photo is required'})
-       }
-       else if(description === '') {
-               setError({descriptionError:'description is required'})
-       }
-       else{
-           const newTool = {
-           "name":toolName ,
-           "price": price,
-           "description":description,
-           "availableQuantity": availableQuantity,
-           "img": toolPhoto,
-           "minimumQuantity": minimumQuantity
-           }
-           fetch('http://localhost:5000/tool', {
-           method: 'POST',
-           body: JSON.stringify(newTool),
-           headers: {
-               'Content-type': 'application/json; charset=UTF-8',
-           },
-           })
-           .then((response) => response.json())
-           .then((json) => {
-             console.log(json)
-               toast.success('Successfully  add fruit')
-           });
-          navigate('/')
+       if(toolName  && price   && availableQuantity  && description  && toolPhoto  && minimumQuantity ) {
+          const newTool = {
+            "name":toolName ,
+            "price": price,
+            "description":description,
+            "availableQuantity": availableQuantity,
+            "img": toolPhoto,
+            "minimumQuantity": minimumQuantity
+            }
+            fetch('http://localhost:5000/tool', {
+              method: 'POST',
+              body: JSON.stringify(newTool),
+              headers: {
+                  'Content-type': 'application/json',
+                  'authorization': `Bearer ${localStorage.getItem("accessToken")}`
+             }})
+            .then((response) => response.json())
+            .then((json) => {
+              console.log(json)
+                toast.success('Successfully  add fruit')
+                navigate('/home')
+            });
        }
    }
 
-   
     return ( 
-     <form onSubmit={handleAddTools} className='w-full min-h-[500px] h-fit px-4 py-5 sm:p-6 backdrop-blur-sm bg-white/30'>
+     <form onSubmit={ handleAddTools} className='w-full min-h-[500px] h-fit px-4 py-5 sm:p-6 backdrop-blur-sm bg-white/30'>
          <div className=" w-full ">
             <div className="grid grid-cols-6 gap-6">
                {/* -------------- tool name --------------------*/}
@@ -94,11 +55,6 @@ const AddTools = () => {
                         placeholder='tool name'
                         className="common-input-field"
                    />
-                     {error?.toolNameError && 
-                       <p className="text-red-500 text-base font-semibold">
-                            {error.toolNameError}
-                           </p> 
-                   }
                </div>
                {/* -------------- price -------------------- */}
                <div className="col-span-6 sm:col-span-3">
@@ -111,11 +67,6 @@ const AddTools = () => {
                             placeholder='price'
                             className="common-input-field"
                      />
-                       {error?.priceError && 
-                           <p className="text-red-500 text-base font-semibold">
-                            {error.priceError}
-                            </p> 
-                         }
                </div>
                {/* -------------- Available Quantity ----------------*/}
                <div className="col-span-6 sm:col-span-3">
@@ -128,11 +79,6 @@ const AddTools = () => {
                         placeholder='available quantity'
                         className="common-input-field"
                       />
-                     {error?.availableQuantityError && 
-                        <p className="text-red-500 text-base font-semibold">
-                              {error.availableQuantityError}
-                       </p> 
-                     }
                </div>
                {/* ------------------- minimum Quantity -------------------- */}
                <div className="col-span-6 sm:col-span-3">
@@ -145,11 +91,6 @@ const AddTools = () => {
                        placeholder=' minimum quantity'
                        className="common-input-field"
                        />
-                         {error?.minimumQuantityError && 
-                           <p className="text-red-500 text-base font-semibold">
-                            {error.minimumQuantityError}
-                            </p> 
-                         }
                </div>
                 {/* --------------- tool image --------------------*/}
                 <div className='col-span-6'>
@@ -157,11 +98,6 @@ const AddTools = () => {
                         Tool photo
                     </label>
                     <input type="text" name="toolPhoto" placeholder='upload photo ' className='w-full common-input-field' id="" />
-                      {error?.toolPhotoError && 
-                         <p className="text-red-500 text-base font-semibold">
-                              {error.toolPhotoError}
-                         </p> 
-                      } 
                </div>   
                {/* -------------------- description --------------------*/}
                <div className='col-span-6 '>
@@ -176,11 +112,6 @@ const AddTools = () => {
                             placeholder="description"
                             defaultValue={''}
                         />
-                      {error?.descriptionError && 
-                           <p className="text-red-500 text-base font-semibold">
-                              {error.descriptionError}
-                          </p> 
-                        }
                   </div>
                </div>
             </div>

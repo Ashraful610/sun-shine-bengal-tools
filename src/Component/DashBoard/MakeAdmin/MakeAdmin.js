@@ -8,12 +8,11 @@ const MakeAdmin = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        fetch('http://localhost:5000/users',{
-            method: 'GET',
-            headers:{
-                'authorization': `Bearer ${localStorage.getItem("accessToken")}`
-            }
-        })
+        fetch('http://localhost:5000/users', {
+          method: 'GET',
+          headers:{
+              'authorization': `Bearer ${localStorage.getItem("accessToken")}`
+         }})
         .then(res => {
             if(res.statusCode === 401 || res.statusCode === 403) {
                  navigate('/home')
@@ -42,7 +41,7 @@ const MakeAdmin = () => {
               </thead>
               <tbody>
                   {
-                         allUsers.map(user => <User  key={user._id} user={user}/>)
+                         allUsers?.map(user => <User  key={user._id} user={user}/>)
                   }
               </tbody>
             </table>
