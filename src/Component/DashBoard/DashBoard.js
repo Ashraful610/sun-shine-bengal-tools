@@ -1,3 +1,4 @@
+import { info } from 'daisyui/src/colors/colorNames';
 import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, Navigate, Outlet, useNavigate } from 'react-router-dom';
@@ -9,6 +10,7 @@ const Dashboard = () => {
     const [ profile , setProfile] = useState({})
     const {email ,role} = profile
 
+    
     const navigate = useNavigate()
 
     useEffect(()=>{
@@ -20,12 +22,6 @@ const Dashboard = () => {
         })
         .then(res => res.json())
         .then(user => setProfile(user))
-    },[user])
-    
-    useEffect(() =>{
-      if(!user){
-        navigate('/home')
-      }
     },[user])
 
     if(loading){

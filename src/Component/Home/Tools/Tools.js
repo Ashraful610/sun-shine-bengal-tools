@@ -1,9 +1,13 @@
 import React from 'react';
 import useTools from '../../Hooks/useTools'
+import Loading from '../../Shared/Loading/Loading';
 import Tool from './Tool/Tool';
 
 const Tools = () => {
     const tools = useTools()
+    if(!tools){
+      return <Loading />
+    }
     return (
         <div className='w-full min-h-[500px] h-fit  py-8 px-5 bg-black/90'>
            <h2 className='text-5xl text-center  font-semibold font-serif bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-sky-500'>

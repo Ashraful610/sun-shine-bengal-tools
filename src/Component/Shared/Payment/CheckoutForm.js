@@ -1,36 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import {  CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import toast from 'react-hot-toast';
 
-const CheckoutForm = ({ appointment }) => {
+const CheckoutForm = ({tool ,user}) => {
     const stripe = useStripe();
-    const elements = useElements();
-    const [cardError, setCardError] = useState('');
-    const [success, setSuccess] = useState('');
-    const [processing, setProcessing] = useState(false);
-    const [transactionId, setTransactionId] = useState('');
-    const [clientSecret, setClientSecret] = useState('');
+  const elements = useElements();
+  const [cardError, setCardError] = useState('');
+  const [clientSecret,setClientSecret] = useState('');
 
-    const { _id, price, patient, patientName } = appointment;
+  const { img , toolName , price , quantity , address , phone ,_id } = tool
+  useEffect(()=> {
+    if(price){
+        fetch('http://localhost:5000/create-payment-intent', {
+              method: 'POST',
+               body: JSON.stringify({price}),
+               headers: {
+                         'Content-type': 'application/json; charset=UTF-8',
+                         'authorization': `Bearer ${localStorage.getItem("accessToken")}`
+                  }})
+                  .then((response) => response.json())
+                  .then((result) => {
+                      if(result.clientSecret){
+                         setClientSecret(result.clientSecret)
+                      }
+               });
+      
+    }
+  },[price]) 
 
-    useEffect(() => {
-        fetch('https://secret-dusk-46242.herokuapp.com/create-payment-intent', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json',
-                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
-            },
-            body: JSON.stringify({ price })
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data?.clientSecret) {
-                    setClientSecret(data.clientSecret);
-                }
-            });
-
-    }, [price])
-
-    const handleSubmit = async (event) => {
+    const handlePayment = async (event) => {
         event.preventDefault();
 
         if (!stripe || !elements) {
@@ -48,86 +46,88 @@ const CheckoutForm = ({ appointment }) => {
             card
         });
 
-        setCardError(error?.message || '')
-        setSuccess('');
-        setProcessing(true);
-        // confirm card payment
+        if(error?.message){
+          setCardError(error?.message)
+        }
         const { paymentIntent, error: intentError } = await stripe.confirmCardPayment(
-            clientSecret,
-            {
-                payment_method: {
-                    card: card,
-                    billing_details: {
-                        name: patientName,
-                        email: patient
-                    },
-                },
-            },
-        );
+          clientSecret,
+          {
+              payment_method: {
+                  card: card,
+                  billing_details: {
+                      name: tool.name,
+                      email: tool.email
+                  },
+              },
+          },
+      );
+    if (intentError) {
+         console.log('error',intentError.message);
+         toast.error(intentError.message);
+    }
+    else {
 
-        if (intentError) {
-            setCardError(intentError?.message);
-            setProcessing(false);
+        if(paymentIntent.id){
+          const tranjectionId = paymentIntent?.id
+          const amount = paymentIntent?.amount
+          const sellAmount = {
+            "name":user?.displayName ,
+            "email": user?.email,
+            "address":address,
+            "phone": phone,
+            "quantity":quantity,
+            "img":img,
+            "toolName":toolName,
+            "price":price,
+            "paid":{tranjectionId,amount}
         }
-        else {
-            setCardError('');
-            setTransactionId(paymentIntent.id);
-            console.log(paymentIntent);
-            setSuccess('Congrats! Your payment is completed.')
-            
-            //store payment on database
-            const payment = {
-                appointment: _id,
-                transactionId: paymentIntent.id
-            }
-            // fetch(`https://secret-dusk-46242.herokuapp.com/booking/${_id}`, {
-            //     method: 'PATCH',
-            //     headers: {
-            //         'content-type': 'application/json',
-            //         'authorization': `Bearer ${localStorage.getItem('accessToken')}`
-            //     },
-            //     body: JSON.stringify(payment)
-            // }).then(res=>res.json())
-            // .then(data => {
-            //     setProcessing(false);
-            //     console.log(data);
-            // })
-
+      
+          fetch(`http://localhost:5000/moneypayment/${_id}`,{
+            method:'PUT',
+            body: JSON.stringify(sellAmount),
+              headers:{'Content-type': 'application/json; charset=UTF-8'}
+          })
+          .then(res => res.json())
+          .then(result => {
+             if(result.modifiedCount > 0){
+                toast.success('Successfully payment ')
+                console.log(sellAmount)
+                //  navigate('/dashboard')
+             }
+          })
         }
+        
+    }
     }
     return (
-        <>
-            <form onSubmit={handleSubmit}>
-                <CardElement
-                    options={{
-                        style: {
-                            base: {
-                                fontSize: '16px',
-                                color: '#424770',
-                                '::placeholder': {
-                                    color: '#aab7c4',
-                                },
-                            },
-                            invalid: {
-                                color: '#9e2146',
-                            },
-                        },
-                    }}
-                />
-                <button className='btn btn-success btn-sm mt-4' type="submit" disabled={!stripe || !clientSecret || success}>
-                    Pay
-                </button>
-            </form>
-            {
-                cardError && <p className='text-red-500'>{cardError}</p>
-            }
-            {
-                success && <div className='text-green-500'>
-                    <p>{success}  </p>
-                    <p>Your transaction Id: <span className="text-orange-500 font-bold">{transactionId}</span> </p>
-                </div>
-            }
-        </>
+     <>
+          <form onSubmit={handlePayment}>
+             <CardElement
+            options={{
+            style: {
+              base: {
+                fontSize: '18px',
+                color: '#fffff',
+                width:'200px ',
+                '::placeholder': {
+                  color: '#fffff',
+                },
+              },
+              invalid: {
+                color: '#9e2146',
+              },
+            },
+           }}
+        />
+        <button type="submit" className='btn bg-green-600' disabled={!stripe || !clientSecret}>
+          Pay
+        </button>
+         </form>
+         {
+            cardError && <p className='text-red-500'>{cardError}</p>
+         }
+     </>
+   
     );
 };
 

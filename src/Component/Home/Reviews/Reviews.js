@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Loading from '../../Shared/Loading/Loading';
 import Review from './Review/Review'
 
 const Reviews = () => {
@@ -9,6 +10,9 @@ const Reviews = () => {
          .then(res => res.json())
          .then(data => setReviews(data))
      },[])
+     if(!reviews){
+        return <Loading></Loading>
+     }
     return (
     <main className="w-full min-h-[500px] h-fit sm:px-10 sm:pb-10 md:px-8 p-5 bg-black/90 ">
           <div className="sm:p-5 p-0">
