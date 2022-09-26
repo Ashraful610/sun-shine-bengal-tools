@@ -3,44 +3,32 @@ import React, { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, Navigate, Outlet, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
+import useUser from '../Hooks/useUser';
 import Loading from '../Shared/Loading/Loading';
 
 const Dashboard = () => {
     const [user, loading, error] = useAuthState(auth)
-    const [ profile , setProfile] = useState({})
-    const {email ,role} = profile
-
-    
+    const mainUser = useUser(user)
     const navigate = useNavigate()
-
-    useEffect(()=>{
-        fetch(`http://localhost:5000/user/${user?.email}`,{
-            method: 'GET',
-            headers:{
-                'authorization': `Bearer ${localStorage.getItem("accessToken")}`
-            }
-        })
-        .then(res => res.json())
-        .then(user => setProfile(user))
-    },[user])
 
     if(loading){
         return <Loading></Loading>
     }
-    return (   
-    <div className="drawer drawer-mobile lg:p-5 bg-black h-fit">
+    return (
+      <div className="bg-black h-full pt-5 pb-20">
+        <div className="drawer drawer-mobile lg:p-5  h-fit ">
           <input id="dashboard-sidebar" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content flex flex-col min-h-[500px] h-fit">
               <Outlet></Outlet>           
           </div> 
-          <div className="drawer-side w-[250px] min-h-[500px] h-fit mb-20 lg:bg-slate-800">
+          <div className="drawer-side w-[250px] min-h-[500px] h-fit lg:bg-slate-800">
              <label htmlFor="dashboard-sidebar" className="drawer-overlay "></label> 
               <ul className="menu p-4 overflow-y-auto text-base-content">
                         {/* <!-- Sidebar content here --> */}
                 
            {/*---- ---------normal user ---------- */}
                   {
-                    role !== 'admin' && <>
+                    mainUser?.role !== 'admin' && <>
                     {/* --------my profile --------- */}
                      <li>
                       <Link to="/dashboard" className='text-white bg-slate-500 my-2'>
@@ -64,7 +52,7 @@ const Dashboard = () => {
                
                    {/* ---------- admin panel ----------- */}
                {
-                role === 'admin' && <>
+                mainUser?.role === 'admin' && <>
                    <li>
                       <Link to="/dashboard" className='text-white bg-slate-500 my-2'>
                           My Profile
@@ -94,7 +82,8 @@ const Dashboard = () => {
                }
               </ul>               
           </div>
-    </div>
+       </div>
+      </div>
     );
 };
 

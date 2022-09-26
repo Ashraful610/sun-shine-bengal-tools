@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Order from '../ManageAllOrders/Order/Order';
 import User from './User/User';
 
 const MakeAdmin = () => {
@@ -19,11 +18,11 @@ const MakeAdmin = () => {
             }
              return res.json()})
         .then(users => setAllUsers(users))
-    },[])
+    },[allUsers])
 
     return (
      <div>
-        <div className='w-full h-full lg:py-5 p-5'>  
+        <div className='w-full h-full h-[500px] px-5'>  
           <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
             <table className="w-full text-left  dark:text-gray-400">
               <thead className=" text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">

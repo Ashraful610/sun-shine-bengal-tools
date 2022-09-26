@@ -23,12 +23,12 @@ const Payment = () => {
     },[])
 
     return (
-     <div className='w-full min-h-[500px] h-fit max-h-[530px] xl:p-5 p-2  bg-black/90'> 
-       <div className='w-full h-2/4 flex justify-center p-5 backdrop-blur-sm '>
+     <div className='w-full h-[500px] h-fit px-5  bg-black/90'> 
+       <div className='w-full h-2/4 flex justify-center p-5 backdrop-blur-sm bg-white/20'>
             <img src={img} className='w-[200px] h-[200px] rounded-full' alt="" />
        </div>
-        <div className='w-full min-h-[250px] h-2/4 sm:flex backdrop-blur-sm bg-white/20 xl:p-5 '>
-            <div className='text-white text-xl p-5 xl:w-3/6 lg:w-2/6 w-full h-full'>
+        <div className='w-full min-h-[250px] h-2/4 sm:flex backdrop-blur-sm bg-slate-800 '>
+            <div className='text-white text-xl p-20 xl:w-3/6 lg:w-2/6 w-full h-full'>
                         <h2>Your Tool : {toolName}</h2>
                         <h2>Pay Tool price : ${price}</h2>
                         <h2>Tool Quantity : {quantity}</h2>

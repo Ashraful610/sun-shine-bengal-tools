@@ -10,11 +10,11 @@ const Home = () => {
     return (
         <div>
            <Banner></Banner>
+           <ExtraSectionOne></ExtraSectionOne>
            <Tools></Tools>
            <BusinessSummary></BusinessSummary>
-           <Reviews></Reviews>
            <ExtraSectionTwo></ExtraSectionTwo>
-           <ExtraSectionOne></ExtraSectionOne>
+           <Reviews></Reviews>
         </div>
     );
 };

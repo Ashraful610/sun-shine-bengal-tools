@@ -10,10 +10,10 @@ const ManageTools = () => {
         fetch('http://localhost:5000/tools')
         .then(res => res.json())
         .then( data => setTools(data))
-     },[])
+     },[tools])
     return (
-        <div className='w-full h-full lg:py-5 p-5'>  
-        <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
+        <div className='w-full h-[500px] px-5'>  
+        <div className="overflow-x-auto overflow-y-auto relative shadow-md sm:rounded-lg">
           <table className="w-full text-left  dark:text-gray-400">
             <thead className=" text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
                <tr>

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const CheckoutForm = ({tool , user , toolId}) => {
   const navigate = useNavigate()
-    const stripe = useStripe();
+  const stripe = useStripe();
   const elements = useElements();
   const [cardError, setCardError] = useState('');
   const [clientSecret,setClientSecret] = useState('');
@@ -14,14 +14,14 @@ const CheckoutForm = ({tool , user , toolId}) => {
   useEffect(()=> {
     if(price){
         fetch('http://localhost:5000/create-payment-intent', {
-              method: 'POST',
-               body: JSON.stringify({price}),
-               headers: {
-                         'Content-type': 'application/json; charset=UTF-8',
-                         'authorization': `Bearer ${localStorage.getItem("accessToken")}`
-                  }})
-                  .then((response) => response.json())
-                  .then((result) => {
+           method: 'POST',
+           body: JSON.stringify({price}),
+           headers: {
+                     'Content-type': 'application/json; charset=UTF-8',
+                     'authorization': `Bearer ${localStorage.getItem("accessToken")}`
+              }})
+              .then((response) => response.json())
+              .then((result) => {
                       if(result.clientSecret){
                          setClientSecret(result.clientSecret)
                       }
@@ -64,7 +64,6 @@ const CheckoutForm = ({tool , user , toolId}) => {
           },
       );
     if (intentError) {
-         console.log('error',intentError.message);
          toast.error(intentError.message);
     }
     else {
@@ -82,37 +81,35 @@ const CheckoutForm = ({tool , user , toolId}) => {
             "toolName":toolName,
             "price":price,
             "paid":{tranjectionId,amount}
-        }
-        if(toolId){
-            fetch(`http://localhost:5000/moneypayment/${toolId}`,{
-            method:'PUT',
-            body: JSON.stringify(sellAmount),
-            headers:{'Content-type': 'application/json; charset=UTF-8'}
-         })
-         .then(res => res.json())
-          .then(result => {
-           if(result.modifiedCount > 0){
-              toast.success('Successfully payment ')
-              console.log(sellAmount)
-               navigate('/dashboard/myorder')
-           }
-          })
-        }
-        else{
-          fetch(`http://localhost:5000/moneypayment/${_id}`,{
-            method:'PUT',
-            body: JSON.stringify(sellAmount),
-              headers:{'Content-type': 'application/json; charset=UTF-8'}
-          })
-          .then(res => res.json())
-          .then(result => {
-             if(result.modifiedCount > 0){
-                toast.success('Successfully payment ')
-                console.log(sellAmount)
-                 navigate('/dashboard/myorder')
              }
-          })
-          }
+           if(toolId){
+                fetch(`http://localhost:5000/moneypayment/${toolId}`,{
+                method:'PUT',
+                body: JSON.stringify(sellAmount),
+                headers:{'Content-type': 'application/json; charset=UTF-8'}
+               })
+            .then(res => res.json())
+              .then(result => {
+              if(result.modifiedCount > 0){
+                  toast.success('Successfully payment ')
+                  navigate('/dashboard/myorder')
+              }
+            })
+           }
+           else{
+              fetch(`http://localhost:5000/moneypayment/${_id}`,{
+                method:'PUT',
+                body: JSON.stringify(sellAmount),
+                  headers:{'Content-type': 'application/json; charset=UTF-8'}
+              })
+              .then(res => res.json())
+              .then(result => {
+                if(result.modifiedCount > 0){
+                    toast.success('Successfully payment ')
+                    navigate('/dashboard/myorder')
+                }
+              })  
+            }
         }
       }
     }

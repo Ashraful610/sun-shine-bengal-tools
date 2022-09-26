@@ -3,17 +3,18 @@ import React from 'react';
 const BusinessSummary = () => {
   
     return (
-        <main className="w-full min-h-[500px] h-fit sm:max-h-[600px] max-h-fit bg-black/90 sm:px-10 sm:pb-10 md:px-8 p-5 ">
-            <div className="sm:p-5 p-0">
+     <main className="w-full bg-white sm:px-10 sm:pb-10 md:px-3 lg:px-8 p-2 ">
+        <section className = 'min-h-[550px] h-fit sm:max-h-[600px] max-h-fit mt-5'>
+            <div className="sm:p-10 p-0 h-2/6">
                <h2 className='md:text-5xl text-4xl text-center  font-semibold font-serif bg-clip-text  text-transparent bg-gradient-to-r from-pink-500 to-sky-500'>
                   Our Business Summary
                </h2>
             </div>
             {/* -------- summary section --------------------*/}
-            <section className="w-full md:h-4/5 h-full flex items-center">
+            <div className="w-full sm:h-4/6  h-full ">
                 <div className="w-full  md:h-3/4  lg:p-5 pb-10 grid md:grid-cols-3 gap-5">
                         {/* ----------- summary one --------------------*/}
-                    <div className=" text-white  backdrop-blur-sm bg-white/10">
+                    <div className=" text-white  backdrop-blur-sm bg-black/80 p-5 border-4 border-sky-300">
                         {/* -- ---------- img div -----------*/}
                         <div className="img-div flex justify-center p-4 ">
                             <img src="https://i.ibb.co/Jxp5v5R/mendator-removebg-preview.png" alt="" className='w-24 h-24 bg-white rounded-full'/>
@@ -31,7 +32,7 @@ const BusinessSummary = () => {
                         </div>
                     </div>
                         {/* ----------- summary two --------------------*/}
-                    <div className=" text-white  backdrop-blur-sm bg-white/10 ">
+                    <div className=" text-white  backdrop-blur-sm bg-black/80 p-5 border-4 border-sky-300">
                         {/* -- ---------- img div -----------*/}
                         <div className="img-div flex justify-center py-4 ">
                             <img src="https://i.ibb.co/ZcLHKtH/1421335.png" className='w-24 h-24 bg-white rounded-full' alt=""/>
@@ -49,7 +50,7 @@ const BusinessSummary = () => {
                         </div>
                     </div>
                     {/* ----------- summary three --------------------*/}
-                    <div className=" text-white  backdrop-blur-sm bg-white/10">
+                    <div className=" text-white  backdrop-blur-sm bg-black/80 p-5 border-4 border-sky-300">
                         {/* -- ---------- img div -----------*/}
                         <div className="img-div flex justify-center py-4 ">
                             <img src="https://i.ibb.co/sjNHkHX/22-224941-log-summary-comments-summary-icon.png" className='w-24 h-24 bg-white rounded-full' alt=""/>
@@ -67,8 +68,9 @@ const BusinessSummary = () => {
                         </div>
                     </div>
                 </div>
-            </section>
-       </main>
+            </div>
+       </section>
+  </main>
     );
 };
 

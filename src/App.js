@@ -22,9 +22,11 @@ import EditProfile from './Component/DashBoard/MyProfile/EditProfile/EditProfile
 import AddReview from './Component/DashBoard/AddReview/AddReview';
 import Payment from './Component/Shared/Payment/Payment';
 
+
+
 function App() {
   return (
-    <div className=''>
+    <div className='main-width'>
        <Navbar></Navbar>
        <Routes>
           <Route path='/' element={<Home></Home>}/>
@@ -38,7 +40,11 @@ function App() {
                  <BuyTool></BuyTool>
              </RequireAuth>}>
             </Route>
-          <Route path="/dashboard" element={<DashBoard></DashBoard>}>
+          <Route path="/dashboard" element={
+                  <RequireAuth> 
+                     <DashBoard></DashBoard>
+                 </RequireAuth>
+                }>
               <Route index element={<MyProfile></MyProfile>}></Route>
               <Route path='addreview' element={<AddReview></AddReview>}></Route>             
               <Route path='myorder' element={<MyOrder></MyOrder>}></Route>
@@ -52,6 +58,8 @@ function App() {
           <Route path='*' element={<NotFoundPage></NotFoundPage>}/>
        </Routes>
        <Footer />
+           
+       {/* for toast  */}
        <Toaster />
     </div>
   );

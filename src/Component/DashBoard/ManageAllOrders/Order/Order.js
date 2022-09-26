@@ -3,11 +3,11 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import useUser from '../../../Hooks/useUser';
 
-const   Order = ({order , user}) => {
+const  Order = ({order }) => {
     const [paid , setPaid]=useState({})
-    const {name ,toolName, img , price , quantity , _id } = order
-    
+    const {name ,toolName, img , price , quantity , _id ,address , email ,phone } = order
      
    useEffect(()=>{
     if(order?.paid?.amount){
@@ -30,6 +30,24 @@ const   Order = ({order , user}) => {
            }
         })
     }
+    const handleShift = event => {
+        event.preventDefault()
+        const newPaid = {...paid ,shift:true}
+        const toolShift = {name:name , toolName:toolName , img:img , price :price , quantity:quantity ,address:address , email:email , phone:phone , paid:newPaid }
+
+      fetch(`http://localhost:5000/moneypayment/${_id}`,{
+        method:'PUT',
+        body: JSON.stringify(toolShift),
+        headers:{'Content-type': 'application/json; charset=UTF-8'}
+       })
+      .then(res => res.json())
+      .then(result => {
+        if(result.modifiedCount > 0){
+          toast.success(`Successfully shipped ${toolName}`,{duration:6000, position:'top-right'})
+          }
+      })
+        
+    }
     return (
     <tr className="bg-white border-b-4 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
         <td className="p-4 w-32 ">
@@ -44,32 +62,34 @@ const   Order = ({order , user}) => {
             <h2 className='lg:text-base text-sm'>Quantity : {quantity}</h2>
         </td>
         <td className="py-4 lg:px-6 px-3 font-semibold text-gray-900 dark:text-white">
-            <p className="lg:text-lg text-base"> ${price}</p>
+             {
+                paid?.amount ?  <p className="lg:text-lg text-base">TK : {paid?.amount}</p>:
+                <p className="lg:text-lg text-base"> ${price}</p>
+            }
         </td>
         <td className="py-4 lg:px-6 px-3 border-l-4">
+          
            {
-           paid?.amount &&  
-             <button className='btn bg-green-500 py-2 px-5 lg:text-lg text-base font-semibold'>{paid.tranjectionId}
-              </button> 
+             paid?.amount ?
+                <div>
+                        {
+                            paid?.shift ? <button className='btn bg-green-600 py-2 px-5 lg:text-lg text-base font-semibold'
+                            onClick={handleShift}> 
+                              Shipped
+                            </button>: <button className='btn bg-green-600 py-2 px-5 lg:text-lg text-base font-semibold'
+                            onClick={handleShift}> 
+                              Pending...
+                            </button> 
+                        }  
+               </div>
+                 :
+              <div className='flex'>
+                 <button className='btn bg-yellow-400 py-2 px-5 lg:text-lg text-base font-semibold'>uppaid</button>
+                 <button className='btn bg-red-700 py-2 px-5 lg:text-lg text-base font-semibold text-white mx-2' onClick={handleDelete}>
+                     Delete
+                   </button>
+              </div>
            }
-
-         {
-            (!paid.tranjectionId) &&
-            <button className='btn bg-red-600 py-2 px-5 lg:text-lg text-base font-semibold text-white mx-2' onClick={handleDelete}>
-                 Delete
-            </button>
-         }           
-           {
-              (!paid?.tranjectionId )&& <Link to={`/dashboard/payment/${_id}`}>
-                <button className='btn bg-green-600 py-2 px-5 lg:text-lg text-base font-semibold text-white mx-2'>
-                    Pay
-                </button>
-            </Link>
-           }
-           {/* {
-            (price && order?.pay) && 
-                <button className='btn bg-green-500 py-2 px-5 lg:text-lg text-base font-semibold text-white mx-2'>Peanding</button>
-           } */}
         </td>
     </tr>
     );

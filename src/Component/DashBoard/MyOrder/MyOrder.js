@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import Loading from '../../Shared/Loading/Loading';
 import Order from '../ManageAllOrders/Order/Order';
+import ParOrder from './ParOrder';
 
 const MyOrder = () => {
     const [user, loading, userError] = useAuthState(auth);
@@ -26,14 +27,14 @@ const MyOrder = () => {
             setOrders(data)
         })
         // console.log(orders)
-    },[ ])
+    },[ orders])
     
     if(loading){
       return <Loading></Loading>
     }
     return (
-        <div className='w-full h-full lg:py-5 p-5'>  
-        <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
+        <div className='w-full h-full px-5 max-h-[500px]'>  
+        <div className="overflow-x-auto overflow-y-auto relative shadow-md sm:rounded-lg">
           <table className="w-full text-left  dark:text-gray-400">
             <thead className=" text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
                <tr>
@@ -53,7 +54,7 @@ const MyOrder = () => {
             </thead>
             <tbody>
                   {
-                    orders?.map(order => <Order  key={order._id} order={order}/>)
+                    orders?.map(order => <ParOrder  key={order._id} order={order}/>)
                   }
             </tbody>
           </table>

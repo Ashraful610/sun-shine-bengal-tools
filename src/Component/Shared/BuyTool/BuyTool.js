@@ -22,13 +22,13 @@ const BuyTool = () => {
     const {displayName , email} = user
     const [error , setProblem] = useState(
         {nameError:'',addressError:'',phoneError:'',quantityError:''})
+        
     const navigate = useNavigate();
 // ---------- load single  tool------------
     useEffect(()=>{
         fetch(`http://localhost:5000/tool/${toolId}`)
         .then(res => res.json())
         .then(data => setTool(data))
-        console.log(tool)
     },[availableQuantity])
 
     if(loading){
@@ -90,7 +90,10 @@ const BuyTool = () => {
             .then((response) => response.json())
             .then(result => {
                 if(result.insertedId){
-                    toast.success(`successfully buy ${name}`)
+                    toast.success(`successfully add to card ${name}`,{
+                        duration: 4000,
+                        position: 'top-right'
+                          })
                 }
             });
 
@@ -112,7 +115,7 @@ const BuyTool = () => {
           .then(res => res.json())
           .then(result => {
              if(result.modifiedCount > 0){
-                toast.success('update tool quantity')
+               toast.success('Now you can pay from this page or pay from my orders page',{duration:6000, position:'top-right'})
              }
           })
         }   
