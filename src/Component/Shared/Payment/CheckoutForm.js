@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import {  CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
-const CheckoutForm = ({tool ,user}) => {
+const CheckoutForm = ({tool , user , toolId}) => {
+  const navigate = useNavigate()
     const stripe = useStripe();
   const elements = useElements();
   const [cardError, setCardError] = useState('');
   const [clientSecret,setClientSecret] = useState('');
 
-  const { img , toolName , price , quantity , address , phone ,_id } = tool
+  const { img , toolName , price , quantity , address , phone ,_id} = tool
   useEffect(()=> {
     if(price){
         fetch('http://localhost:5000/create-payment-intent', {
@@ -81,7 +83,22 @@ const CheckoutForm = ({tool ,user}) => {
             "price":price,
             "paid":{tranjectionId,amount}
         }
-      
+        if(toolId){
+            fetch(`http://localhost:5000/moneypayment/${toolId}`,{
+            method:'PUT',
+            body: JSON.stringify(sellAmount),
+            headers:{'Content-type': 'application/json; charset=UTF-8'}
+         })
+         .then(res => res.json())
+          .then(result => {
+           if(result.modifiedCount > 0){
+              toast.success('Successfully payment ')
+              console.log(sellAmount)
+               navigate('/dashboard/myorder')
+           }
+          })
+        }
+        else{
           fetch(`http://localhost:5000/moneypayment/${_id}`,{
             method:'PUT',
             body: JSON.stringify(sellAmount),
@@ -92,12 +109,12 @@ const CheckoutForm = ({tool ,user}) => {
              if(result.modifiedCount > 0){
                 toast.success('Successfully payment ')
                 console.log(sellAmount)
-                //  navigate('/dashboard')
+                 navigate('/dashboard/myorder')
              }
           })
+          }
         }
-        
-    }
+      }
     }
     return (
      <>

@@ -15,7 +15,7 @@ const stripePromise =  loadStripe('pk_test_51LkNUFACoQlhc0Qheeqb54AyxBdsEKOR1Tga
 const BuyTool = () => {
     const {toolId} = useParams()
     const [tool , setTool] = useState({})
-    const {name , price , availableQuantity ,minimumQuantity,img , description } = tool
+    const {name , price , availableQuantity ,minimumQuantity,img , description ,_id} = tool
     const [sellTool  , setSellTool] = useState({})
     
     const [user, loading, userError] = useAuthState(auth);
@@ -197,7 +197,7 @@ const BuyTool = () => {
               </form>
              <div className="bg-white p-5 my-5">
               <Elements stripe={stripePromise}>
-                        <CheckoutForm tool={sellTool} user={user}/>
+                        <CheckoutForm tool={sellTool} user={user} toolId={toolId}/>
              </Elements>
              </div>
 

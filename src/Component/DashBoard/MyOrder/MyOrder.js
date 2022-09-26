@@ -9,12 +9,7 @@ const MyOrder = () => {
     const [user, loading, userError] = useAuthState(auth);
     const [orders , setOrders] = useState([])
     const navigate = useNavigate()
-    // console.log(orders)
-console.log(orders)
-  {
-    const findvaleu = orders?.map(order => order?.paid)
-    console.log(findvaleu)
-  }
+ 
     useEffect(()=>{
         fetch(`http://localhost:5000/soldTools/${user.email}`,{
           method: 'GET',

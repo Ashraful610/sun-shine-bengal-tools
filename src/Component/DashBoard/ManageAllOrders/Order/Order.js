@@ -8,13 +8,13 @@ const   Order = ({order , user}) => {
     const [paid , setPaid]=useState({})
     const {name ,toolName, img , price , quantity , _id } = order
     
-     console.log(order)
-    useEffect(()=>{
-        if(order?.paid){
-            setPaid(paid)
-            console.log(paid?.tranjectionId, paid)
-        }
-      },[price])
+     
+   useEffect(()=>{
+    if(order?.paid?.amount){
+        setPaid(order?.paid)
+    }
+   },[])
+     
 
 
     const handleDelete = event => {
@@ -48,14 +48,17 @@ const   Order = ({order , user}) => {
         </td>
         <td className="py-4 lg:px-6 px-3 border-l-4">
            {
-            paid?.transjectionId ?
+           paid?.amount &&  
              <button className='btn bg-green-500 py-2 px-5 lg:text-lg text-base font-semibold'>{paid.tranjectionId}
-              </button> :
-            <button className='btn bg-red-600 py-2 px-5 lg:text-lg text-base font-semibold text-white mx-2' onClick={handleDelete}>
-                    Delete
-            </button>
-           
+              </button> 
            }
+
+         {
+            (!paid.tranjectionId) &&
+            <button className='btn bg-red-600 py-2 px-5 lg:text-lg text-base font-semibold text-white mx-2' onClick={handleDelete}>
+                 Delete
+            </button>
+         }           
            {
               (!paid?.tranjectionId )&& <Link to={`/dashboard/payment/${_id}`}>
                 <button className='btn bg-green-600 py-2 px-5 lg:text-lg text-base font-semibold text-white mx-2'>
