@@ -8,7 +8,7 @@ const   Order = ({order , user}) => {
     const [paid , setPaid]=useState({})
     const {name ,toolName, img , price , quantity , _id } = order
     
-
+     console.log(order)
     useEffect(()=>{
         if(order?.paid){
             setPaid(paid)

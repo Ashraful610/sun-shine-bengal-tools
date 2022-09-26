@@ -13,7 +13,7 @@ const MyOrder = () => {
 console.log(orders)
   {
     const findvaleu = orders?.map(order => order?.paid)
-    // console.log(findvaleu)
+    console.log(findvaleu)
   }
     useEffect(()=>{
         fetch(`http://localhost:5000/soldTools/${user.email}`,{
