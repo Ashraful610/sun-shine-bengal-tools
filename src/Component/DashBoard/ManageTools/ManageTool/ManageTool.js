@@ -8,7 +8,7 @@ const ManageTool = ({tool}) => {
         event.preventDefault()
         const deleteConfirm = window.confirm('Are you sure you want to delete');
         if(deleteConfirm) {
-            fetch(`http://localhost:5000/tool/${_id}`, {
+            fetch(`https://intense-journey-19881.herokuapp.com/tool/${_id}`, {
                 method: 'DELETE',
                })
             .then(res => res.json())

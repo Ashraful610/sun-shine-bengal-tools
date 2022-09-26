@@ -7,7 +7,7 @@ const User = ({user}) => {
    const makeAdmin = event => {
       event.preventDefault();
 
-      fetch(`http://localhost:5000/user/admin/${email}`, {
+      fetch(`https://intense-journey-19881.herokuapp.com/user/admin/${email}`, {
          method: 'PUT',
          headers:{
              'authorization': `Bearer ${localStorage.getItem("accessToken")}`

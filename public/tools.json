@@ -5,7 +5,7 @@
         "price":30,
         "description":"A shovel is a tool for digging, lifting, and moving bulk materials, su…",
         "img":"https://i.ibb.co/X7B385c/image.png",
-        "availableQuantity":200,
+        "availableQuantity":300,
         "minimumQuantity":"10"
     },
     {
@@ -13,7 +13,7 @@
         "price":"30",
         "description":"The best paint brush for a smooth finish is the Purdy Nylox Glide brus…",
         "img":"https://i.ibb.co/4fxBPHp/image.png",
-        "availableQuantity":50,
+        "availableQuantity":500,
         "minimumQuantity":"10"
     },
     {
@@ -21,7 +21,7 @@
         "price":"120",
         "description":"Basic Types of Drilling Machines. Drilling machines or drill presses a…",
         "img":"https://i.ibb.co/bdG9Kt9/image.png",
-        "availableQuantity":"60",
+        "availableQuantity":"600",
         "minimumQuantity":"6"
     },
     {
@@ -29,7 +29,7 @@
         "price":20,
         "description":"Hammer has already completed seven-eight production cycles. “Beginning…",
         "img":"https://i.ibb.co/88KCRpD/image.png",
-        "availableQuantity":80,
+        "availableQuantity":800,
         "minimumQuantity":20
     },
     {
@@ -37,7 +37,7 @@
         "price":"50",
         "description":"A workbench is a sturdy table at which manual work is done. They range…",
         "img":"https://i.ibb.co/nkGVBRS/image.png",
-        "availableQuantity":285,
+        "availableQuantity":2805,
         "minimumQuantity":"5"
     },
     {      
@@ -45,7 +45,7 @@
         "price":"20",
         "description":"A hacksaw is a fine-toothed saw, originally and mainly made for cuttin…",
         "img":"https://i.ibb.co/HFn523p/image.png",
-        "availableQuantity":70,
+        "availableQuantity":700,
         "minimumQuantity":"30"
     }
 ]

@@ -13,7 +13,7 @@ const CheckoutForm = ({tool , user , toolId}) => {
   const { img , toolName , price , quantity , address , phone ,_id} = tool
   useEffect(()=> {
     if(price){
-        fetch('http://localhost:5000/create-payment-intent', {
+        fetch('https://intense-journey-19881.herokuapp.com/create-payment-intent', {
            method: 'POST',
            body: JSON.stringify({price}),
            headers: {
@@ -83,7 +83,7 @@ const CheckoutForm = ({tool , user , toolId}) => {
             "paid":{tranjectionId,amount}
              }
            if(toolId){
-                fetch(`http://localhost:5000/moneypayment/${toolId}`,{
+                fetch(`https://intense-journey-19881.herokuapp.com/moneypayment/${toolId}`,{
                 method:'PUT',
                 body: JSON.stringify(sellAmount),
                 headers:{'Content-type': 'application/json; charset=UTF-8'}
@@ -97,7 +97,7 @@ const CheckoutForm = ({tool , user , toolId}) => {
             })
            }
            else{
-              fetch(`http://localhost:5000/moneypayment/${_id}`,{
+              fetch(`https://intense-journey-19881.herokuapp.com/moneypayment/${_id}`,{
                 method:'PUT',
                 body: JSON.stringify(sellAmount),
                   headers:{'Content-type': 'application/json; charset=UTF-8'}

@@ -45,7 +45,7 @@ const AddReview = () => {
                 "img": photo
                 }
             
-                fetch('http://localhost:5000/review', {
+                fetch('https://intense-journey-19881.herokuapp.com/review', {
                    method: 'POST',
                    body: JSON.stringify(review),
                    headers: {

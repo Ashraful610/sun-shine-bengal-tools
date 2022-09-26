@@ -20,7 +20,7 @@ const  Order = ({order }) => {
     const handleDelete = event => {
         event.preventDefault()
         
-        fetch(`http://localhost:5000/soldTool/${_id}`,{
+        fetch(`https://intense-journey-19881.herokuapp.com/soldTool/${_id}`,{
             method: 'DELETE'
         })
         .then(res => res.json())
@@ -35,7 +35,7 @@ const  Order = ({order }) => {
         const newPaid = {...paid ,shift:true}
         const toolShift = {name:name , toolName:toolName , img:img , price :price , quantity:quantity ,address:address , email:email , phone:phone , paid:newPaid }
 
-      fetch(`http://localhost:5000/moneypayment/${_id}`,{
+      fetch(`https://intense-journey-19881.herokuapp.com/moneypayment/${_id}`,{
         method:'PUT',
         body: JSON.stringify(toolShift),
         headers:{'Content-type': 'application/json; charset=UTF-8'}

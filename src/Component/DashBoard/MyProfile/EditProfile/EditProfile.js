@@ -9,7 +9,7 @@ const EditProfile = () => {
    
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/user/${email.email}`)
+        fetch(`https://intense-journey-19881.herokuapp.com/user/${email.email}`)
         .then(res => res.json())
         .then(data =>setUser(data))
      },[email])
@@ -32,7 +32,7 @@ const EditProfile = () => {
                 phone:phone,
                 job:job
               }
-              fetch(`http://localhost:5000/user/${email}`,{
+              fetch(`https://intense-journey-19881.herokuapp.com/user/${email}`,{
                 method:'PUT',
                 body: JSON.stringify(profileUpdate),
                   headers:{'Content-type': 'application/json; charset=UTF-8'}

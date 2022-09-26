@@ -26,7 +26,7 @@ const BuyTool = () => {
     const navigate = useNavigate();
 // ---------- load single  tool------------
     useEffect(()=>{
-        fetch(`http://localhost:5000/tool/${toolId}`)
+        fetch(`https://intense-journey-19881.herokuapp.com/tool/${toolId}`)
         .then(res => res.json())
         .then(data => setTool(data))
     },[availableQuantity])
@@ -80,7 +80,7 @@ const BuyTool = () => {
             }
             setSellTool(sellToolInfo)
             // ---------- for sellToolCollection api tool post---------
-            fetch('http://localhost:5000/sellTool',{
+            fetch('https://intense-journey-19881.herokuapp.com/sellTool',{
               method: 'POST',
               body: JSON.stringify(sellToolInfo),
               headers: {
@@ -107,7 +107,7 @@ const BuyTool = () => {
                 "minimumQuantity":minimumQuantity,
                 "availableQuantity":newQuantity,
         }
-        fetch(`http://localhost:5000/tool/${toolId}`,{
+        fetch(`https://intense-journey-19881.herokuapp.com/tool/${toolId}`,{
             method:'PUT',
             body: JSON.stringify(updateTool),
               headers:{'Content-type': 'application/json; charset=UTF-8'}

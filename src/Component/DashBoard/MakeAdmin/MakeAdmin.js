@@ -7,7 +7,7 @@ const MakeAdmin = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        fetch('http://localhost:5000/users', {
+        fetch('https://intense-journey-19881.herokuapp.com/users', {
           method: 'GET',
           headers:{
               'authorization': `Bearer ${localStorage.getItem("accessToken")}`

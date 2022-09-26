@@ -61,7 +61,7 @@ const AddTools = () => {
             "img": toolPhoto,
             "minimumQuantity": minimumQuantity
             }
-            fetch('http://localhost:5000/tool', {
+            fetch('https://intense-journey-19881.herokuapp.com/tool', {
               method: 'POST',
               body: JSON.stringify(newTool),
               headers: {

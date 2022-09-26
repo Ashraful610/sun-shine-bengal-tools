@@ -12,7 +12,7 @@ const MyOrder = () => {
     const navigate = useNavigate()
  
     useEffect(()=>{
-        fetch(`http://localhost:5000/soldTools/${user.email}`,{
+        fetch(`https://intense-journey-19881.herokuapp.com/soldTools/${user.email}`,{
           method: 'GET',
           headers:{
               'authorization': `Bearer ${localStorage.getItem("accessToken")}`

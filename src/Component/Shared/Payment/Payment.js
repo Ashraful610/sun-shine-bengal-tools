@@ -17,7 +17,7 @@ const Payment = () => {
     const { img , toolName , price , quantity } = tool
 
     useEffect(() => {
-        fetch(`http://localhost:5000/soldTool/${toolId}`)
+        fetch(`https://intense-journey-19881.herokuapp.com/soldTool/${toolId}`)
         .then(res => res.json())
         .then(tool => setTool(tool))
     },[])

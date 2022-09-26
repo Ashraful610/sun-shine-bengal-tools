@@ -21,7 +21,7 @@ const  ParOrder = ({order }) => {
         const deleteConfirm = window.confirm(`Are you sure you want to delete this ${toolName}`)
 
         if(deleteConfirm){
-            fetch(`http://localhost:5000/soldTool/${_id}`,{
+            fetch(`https://intense-journey-19881.herokuapp.com/soldTool/${_id}`,{
                 method: 'DELETE'
             })
             .then(res => res.json())
