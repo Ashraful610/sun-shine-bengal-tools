@@ -1,11 +1,13 @@
 import React from 'react';
 import './Banner.css'
 import { Typewriter } from 'react-simple-typewriter'
+import Fade from 'react-reveal/Fade';
 
 
 const Banner = () => {
     return (
-     <div className="banner bg-blend-overlay w-full min-h-[500px] h-screen max-h-[600px] md:p-5 p-3 bg-black/70 flex justify-center items-center">
+      <Fade bottom>
+             <div className="banner bg-blend-overlay w-full min-h-[500px] h-screen max-h-[600px] md:p-5 p-3 bg-black/70 flex justify-center items-center">
            {/* ----------- banner title ------------ */}
            <div className='lg:w-3/4 md:w-4/4 sm:w-3/4 w-4/4 text-center p-2'>
                <h2 className="banner-heading pb-5">    
@@ -30,7 +32,9 @@ const Banner = () => {
                 Explore  
               </button>
            </div>
-    </div>
+            </div>
+      </Fade>
+    
     );
 };
 

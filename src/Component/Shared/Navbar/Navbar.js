@@ -26,9 +26,9 @@ const Navbar = () => {
     }
 
     return (
-   <div className=" ">
-     <div className="navbar bg-black/90 sm:px-5 px-2 sm:py-3 py-1 w-full shadow-lg border-b-2 border-green-500 ">
-   <div className="navbar-start lg:w-5/6  md:w-3/6 w-4/6 ">
+   <div className=" sticky top-0 left-0 z-50">
+     <div className="navbar bg-black/90 relative sm:px-5 px-2 sm:py-3 py-1 w-full shadow-lg border-b-2 border-green-500 ">
+       <div className="navbar-start lg:w-5/6  md:w-3/6 w-4/6 ">
        {/* -------------- small navigation -------------------- */}
       <div className="dropdown">
             <label tabIndex="0" className="btn btn-ghost xl:hidden p-0 pr-2 text-white">
@@ -93,9 +93,9 @@ const Navbar = () => {
              }
          </ul>
       </div>
-   </div>
+       </div>
 
-   {user && 
+      {user && 
        <div className="navbar-end hidden sm:flex lg:w-1/6 md:w-2/6 w-2/6 common-bg px-4 py-1 border-r-4 rounded border-white">
           {
             (user?.photoURL) ? 
@@ -104,7 +104,7 @@ const Navbar = () => {
           {
           user && <p className='text-white text-base '>{user?.displayName}</p>         
           }
-   </div>
+      </div>
    }
   
     </div>
