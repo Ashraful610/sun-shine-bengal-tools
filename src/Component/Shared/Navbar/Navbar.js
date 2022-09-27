@@ -27,7 +27,7 @@ const Navbar = () => {
 
     return (
    <div className=" ">
-     <div className="navbar bg-black/90 sm:px-5 px-2 sm:py-3 py-1 w-full shadow-lg border-b-2 border-teal-400 ">
+     <div className="navbar bg-black/90 sm:px-5 px-2 sm:py-3 py-1 w-full shadow-lg border-b-2 border-green-500 ">
    <div className="navbar-start lg:w-5/6  md:w-3/6 w-4/6 ">
        {/* -------------- small navigation -------------------- */}
       <div className="dropdown">
@@ -64,7 +64,7 @@ const Navbar = () => {
             </ul>
       </div>
       {/*  ---------- website name ----------- */}
-      <h2 className='text-xl border-l-2 border-teal-400 website-name sm:text-2xl xl:text-3xl lg:text-3xl font-semibold font-serif xl:mr-7 lg:mx-2 '>
+      <h2 className='website-name '>
                 Bengal Tools
       </h2>
        {/*  ------------ large device block -------- */}
@@ -96,7 +96,7 @@ const Navbar = () => {
    </div>
 
    {user && 
-       <div className="navbar-end hidden sm:block lg:w-1/6 md:w-2/6 w-2/6 common-bg px-4 py-1 border-r-4 rounded border-white">
+       <div className="navbar-end hidden sm:flex lg:w-1/6 md:w-2/6 w-2/6 common-bg px-4 py-1 border-r-4 rounded border-white">
           {
             (user?.photoURL) ? 
             <img src={user?.photoURL} className='w-[30px] h-[30px] mx-2 rounded-full' alt="" /> : <img src='https://i.ibb.co/Pgz5CV9/user-account-management-logo-user-icon-11562867145a56rus2zwu.png' className='w-[30px] h-[30px] rounded-full mx-2' alt="" />

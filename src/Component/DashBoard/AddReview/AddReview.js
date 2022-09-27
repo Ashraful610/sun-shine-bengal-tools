@@ -116,7 +116,7 @@ const AddReview = () => {
               </div>
                    {/* -------------- button div ------------------------------ */}
               <div className="px-4 mt-5 text-center sm:px-6">
-                 <button type="submit" className="gradient-btn md:w-1/4 w-2/4 text-white">
+                 <button type="submit" className="btn bg-green-600 hover:bg-green-800 md:w-1/4 w-2/4 text-white">
                          Submit
                 </button>
                </div>

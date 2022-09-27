@@ -32,7 +32,7 @@ const Tool = ({tool}) => {
                     </h2>
                </div>
                <div className='p-2 flex justify-center'>
-                      <button className='btn gradient-btn w-2/4 disabled' onClick={handleTool}>
+                      <button className='btn main-btn w-2/4 ' onClick={handleTool}>
                         Buy Now
                       </button>
                </div>

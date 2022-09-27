@@ -172,7 +172,7 @@ const AddTools = () => {
             </div>
               {/* -------------- button div ------------------------------ */}
             <div className="px-4 pt-3 text-center sm:px-6">
-                <button type="submit" className="gradient-btn lg:w-1/4  w-2/4">
+                <button type="submit" className="btn bg-green-600 hover:bg-green-700 lg:w-1/4  w-2/4">
                     Submit
                 </button>
             </div>

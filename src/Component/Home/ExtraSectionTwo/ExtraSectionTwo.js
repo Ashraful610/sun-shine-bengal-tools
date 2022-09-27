@@ -1,5 +1,6 @@
 import React from 'react';
 import './ExtraSectionTwo.css'
+import Fade from 'react-reveal/Fade';
 
 const ExtraSectionTwo = () => {
     return (
@@ -81,12 +82,15 @@ const ExtraSectionTwo = () => {
     //     </div>   
     //  </section>
      <div className='w-full min-h-[550px] h-fit max-h-[600px] bg-black/90 lg:p-5 p-2'> 
-         <h2 className='md:text-5xl text-3xl text-center  font-semibold font-serif bg-clip-text text-transparent bg-gradient-to-r from-pink-600 to-sky-500'>
+     <Fade right >
+        <h2 className='md:text-5xl text-3xl text-center  font-semibold font-serif text-green-600'>
             Testimonials
              </h2>
+     </Fade>
+       
          <div className='w-full h-full  flex xl:items-center sm:px-5 p-2'>
             <div className="carousel w-full h-[400px] flex items-center">
-                <div id="slide1" className="carousel-item relative w-full h-full backdrop-blur-sm bg-white/20">
+                <div id="slide1" className="carousel-item relative w-full h-full backdrop-blur-sm bg-white/10">
                     {/* ----------- main content ---------- */}
                      <div className='w-full h-full'>
                         <div className='w-full h-2/4 flex justify-center items-center'>
@@ -107,7 +111,7 @@ const ExtraSectionTwo = () => {
                                 <p className='text-white md:px-36 sm:px-20 px-5'>
                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, earum. Eligendi deserunt praesentium possimus, ad quidem rerum nemo sit velit.
                                 </p>
-                                <h2 className='text-xl font-semibold font-serif bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-sky-400'>Ashraful Alam</h2>
+                                <h2 className='text-xl font-semibold font-serif bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-teal-500'>Ashraful Alam</h2>
                             </div>
                         </div>
                      </div>
@@ -138,7 +142,7 @@ const ExtraSectionTwo = () => {
                                 <p className='text-white md:px-36 sm:px-20 px-5'>
                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, earum. Eligendi deserunt praesentium possimus, ad quidem rerum nemo sit velit.
                                 </p>
-                                <h2 className='text-xl font-semibold font-serif bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-sky-400'>Atif Islam</h2>
+                                <h2 className='text-xl font-semibold font-serif bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-teal-500'>Atif Islam</h2>
                             </div>
                         </div>
                      </div>
@@ -169,7 +173,7 @@ const ExtraSectionTwo = () => {
                                 <p className='text-white md:px-36 sm:px-20 px-5'>
                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, earum. Eligendi deserunt praesentium possimus, ad quidem rerum nemo sit velit.
                                 </p>
-                                <h2 className='text-xl font-semibold font-serif bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-sky-400'>Amir Khan</h2>
+                                <h2 className='text-xl font-semibold font-serif bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-teal-500'>Amir Khan</h2>
                             </div>
                         </div>
                      </div>
@@ -200,7 +204,7 @@ const ExtraSectionTwo = () => {
                                 <p className='text-white md:px-36 sm:px-20 px-5'>
                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, earum. Eligendi deserunt praesentium possimus, ad quidem rerum nemo sit velit.
                                 </p>
-                                <h2 className='text-xl font-semibold font-serif bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-sky-400'>Salman Khan</h2>
+                                <h2 className='text-xl font-semibold font-serif bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-teal-500'>Salman Khan</h2>
                             </div>
                         </div>
                      </div>

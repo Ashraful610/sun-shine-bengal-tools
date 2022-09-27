@@ -12,7 +12,7 @@ const Review = ({review}) => {
             <div className="content-text text-center  px-2">
                 <p className="py-2">{description}</p>  
                 <h2>Rating : {rating} </h2>
-                 <h3 className="font-semibold text-lg py-2 font-serif bg-clip-text text-transparent bg-gradient-to-r from-pink-300 to-sky-500">
+                 <h3 className="font-semibold text-lg py-2 font-serif bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-teal-500">
                      {name}
                 </h3>
             </div>
