@@ -25,7 +25,7 @@ const MyPortfolio = () => {
                        <h2>Project One :</h2>
                        <div className='lg:p-4 py-4'>
                           <h2 className='text-lg'>Live Site : 
-                             <a href="https://assignment-client-site-11.web.app/" className='gradient-btn lg:p-2 p-1 '>
+                             <a href="https://assignment-client-site-11.web.app/" className='btn bg-green-600 lg:p-2 p-1 '>
                                   Explore Live Site
                             </a> 
                           </h2>
@@ -35,7 +35,7 @@ const MyPortfolio = () => {
                        <h2>Project Two :</h2>
                        <div className='lg:p-4 py-4'>
                           <h2 className='text-lg'>Live Site :  
-                             <a href="https://musical-chimera-217e89.netlify.app/home" className='gradient-btn lg:p-2 p-1'>
+                             <a href="https://musical-chimera-217e89.netlify.app/home" className='bg-green-600 btn lg:p-2 p-1'>
                                   Explore Live Site
                              </a> 
                           </h2>
@@ -45,7 +45,7 @@ const MyPortfolio = () => {
                        <h2>Project Three :</h2>
                        <div className='lg:p-4 py-4'>
                        <h2 className='text-lg'> Live Site :  
-                             <a href="https://assignment-firebase-10.firebaseapp.com/" className='gradient-btn lg:p-2 p-1' >
+                             <a href="https://assignment-firebase-10.firebaseapp.com/" className='bg-green-600 btn lg:p-2 p-1' >
                                   Explore Live Site
                              </a> 
                           </h2>
